@@ -1,7 +1,8 @@
-import { inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import { inject, Injectable, PLATFORM_ID } from '@angular/core';
 import type { FeedService } from '../../interfaces/feed-service.interface';
 import type { Post, PostInput } from '../../interfaces/post.interface';
+import { AUTH_SERVICE } from '../auth';
 import mockPosts from './feeds.mock.json';
 
 const STORAGE_KEY = 'feed_posts';
@@ -9,6 +10,7 @@ const STORAGE_KEY = 'feed_posts';
 @Injectable()
 export class MockFeedServiceImpl implements FeedService {
   readonly #isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+  readonly #authService = inject(AUTH_SERVICE);
   readonly #mockedDb: Map<Post['id'], Post>;
 
   constructor() {
@@ -23,11 +25,26 @@ export class MockFeedServiceImpl implements FeedService {
     return structuredClone(post);
   }
 
-  async uploadPost(postInput: PostInput): Promise<Post> {
-    const post = structuredClone(postInput);
-    post.id = crypto.randomUUID();
+  async uploadPost(postInput: PostInput, token: string): Promise<Post> {
+    const author = await this.#authService.getAuthenticatedUser(token)
+      .then((user): Post['author'] => ({
+        id: user.id,
+        name: user.displayName,
+        avatarUrl: user.avatar
+      }));
+
+    const post: Post = {
+      ...structuredClone(postInput),
+      id: crypto.randomUUID(),
+      author,
+      createdAt: new Date().toISOString(),
+      stats: { likes: 0, comments: 0, shares: 0 },
+      liked: false,
+    };
+
     this.#mockedDb.set(post.id, post);
     this.#persist();
+
     return structuredClone(post);
   }
 

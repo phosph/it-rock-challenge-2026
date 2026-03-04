@@ -5,11 +5,12 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AuthStore } from '@src/app/store/auth.store';
 import { FeedStore } from '@src/app/store/feed.store';
 import type { PostInput } from '@src/app/interfaces/post.interface';
+import { AvatarComponent } from '@src/app/components/atoms/avatar/avatar';
 
 @Component({
   selector: 'app-publish',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, AvatarComponent],
   styleUrl: './publish.css',
   templateUrl: './publish.html',
 })
@@ -76,17 +77,8 @@ export default class PublishPage {
     const hasImage = imageUrl.trim().length > 0;
 
     const postInput: PostInput = {
-      id: '',
       type: hasImage ? 'image' : 'quote',
-      author: {
-        id: user.id,
-        name: user.displayName,
-        avatarUrl: user.avatar,
-      },
       content: content.trim(),
-      createdAt: 'Just now',
-      stats: { likes: 0, comments: 0, shares: 0 },
-      liked: false,
       ...(hasImage && {
         image: {
           imageUrl: imageUrl.trim(),

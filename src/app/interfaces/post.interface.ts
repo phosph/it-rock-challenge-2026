@@ -33,13 +33,8 @@ export interface PostEvent {
 }
 
 export interface PostInput {
-  id: string;
   type: PostType;
-  author: PostAuthor;
   content: string;
-  createdAt: string;
-  stats: PostStats;
-  liked: boolean;
   meta?: string;
   image?: PostImage;
   article?: PostArticle;
@@ -49,4 +44,8 @@ export interface PostInput {
 
 export interface Post extends PostInput {
   id: string;
+  author: PostAuthor;
+  createdAt: string;
+  stats: PostStats;
+  liked: boolean;
 }

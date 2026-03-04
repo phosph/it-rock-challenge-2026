@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthStore } from '@src/app/store/auth.store';
+import { AvatarComponent } from '@src/app/components/atoms/avatar/avatar';
 
 @Component({
   selector: 'app-user-profile',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink],
+  imports: [RouterLink, AvatarComponent],
   templateUrl: './user-profile.html',
   styleUrl: './user-profile.css',
 })

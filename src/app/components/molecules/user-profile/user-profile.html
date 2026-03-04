@@ -10,7 +10,7 @@
     class="avatar-trigger w-10 h-10 rounded-full bg-linear-to-br from-primary-500 to-primary-900 p-0.5 shadow-md hover:shadow-lg transition-all cursor-pointer"
     aria-label="User menu"
   >
-    <img [src]="u.avatar" [alt]="u.displayName" class="w-full h-full rounded-full object-cover border-2 border-white">
+    <app-avatar [src]="u.avatar" [alt]="u.displayName" size="full" />
   </button>
 
   <!-- Dropdown -->
