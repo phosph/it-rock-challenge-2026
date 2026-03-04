@@ -62,6 +62,10 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 
 ---
 
+## Requirements
+
+Full project requirements are in [`ENUNCIADO.md`](../ENUNCIADO.md).
+
 ## Project Overview
 
 This is a **basic social network** with mocked services (no real backend). Data is persisted in **LocalStorage**.
