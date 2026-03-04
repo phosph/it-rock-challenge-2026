@@ -2,7 +2,7 @@ import { computed, inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals';
 import type { User } from '@src/app/interfaces/user.interface';
-import type { LoginData } from '@src/app/interfaces/auth-service.interface';
+import type { LoginData, OAuthExchangeData } from '@src/app/interfaces/auth-service.interface';
 import { AUTH_SERVICE } from '../services/auth';
 import { AuthError, AuthErrorCode } from '../interfaces/auth-error';
 
@@ -46,6 +46,24 @@ export const AuthStore = signalStore(
           error: e instanceof Error ? e.message : 'Login failed',
         });
 
+        return null;
+      }
+    },
+
+    async loginWithOAuth(data: OAuthExchangeData): Promise<User | null> {
+      patchState(store, { loading: true, error: '' });
+      try {
+        const [user, token] = await authService.loginWithOAuth(data);
+
+        patchState(store, { user, token, loading: false });
+        if (isBrowser) localStorage.setItem(TOKEN_KEY, token);
+
+        return user;
+      } catch (e) {
+        patchState(store, {
+          loading: false,
+          error: e instanceof Error ? e.message : 'OAuth login failed',
+        });
         return null;
       }
     },

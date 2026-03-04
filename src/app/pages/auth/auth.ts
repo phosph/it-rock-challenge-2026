@@ -22,6 +22,16 @@ export default class AuthPage {
     rememberMe: [false],
   });
 
+  loginWithProvider(provider: 'google' | 'twitter'): void {
+    const state = crypto.randomUUID();
+    this.router.navigate(['/auth/oauth', provider], {
+      queryParams: {
+        redirect_uri: '/auth/callback',
+        state,
+      },
+    });
+  }
+
   async onSubmit() {
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();

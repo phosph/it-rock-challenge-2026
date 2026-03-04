@@ -1,0 +1,56 @@
+<main class="w-full sm:max-w-[400px] card shadow-floating relative z-10" aria-labelledby="consent-title">
+
+  <!-- Provider color bar -->
+  <div class="h-1.5 w-full" [style.background-color]="config().color" aria-hidden="true"></div>
+
+  <div class="p-8 sm:p-10">
+    <!-- Header -->
+    <div class="text-center mb-6">
+      <div class="flex justify-center mb-4">
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center text-white text-xl"
+          [style.background-color]="config().color"
+          role="img"
+          [attr.aria-label]="config().name + ' logo'">
+          <i [class]="config().iconClass" aria-hidden="true"></i>
+        </div>
+      </div>
+      <p class="text-sm text-neutral-500 mb-1">Sign in with</p>
+      <h1 id="consent-title" class="text-xl font-semibold text-neutral-900">{{ config().name }}</h1>
+    </div>
+
+    <!-- User Account -->
+    <div class="bg-neutral-50 border border-neutral-200 rounded-xl p-4 mb-6">
+      <p class="text-sm text-neutral-500 mb-1">Signing in as</p>
+      <p class="font-medium text-neutral-900">{{ config().user }}</p>
+      <p class="text-sm text-neutral-500">{{ config().userEmail }}</p>
+    </div>
+
+    <!-- Scopes -->
+    <div class="mb-6">
+      <p class="text-sm font-medium text-neutral-700 mb-3">This app will be able to:</p>
+      <ul class="space-y-2" role="list">
+        @for (scope of config().scopes; track scope) {
+          <li class="flex items-center gap-2 text-sm text-neutral-600">
+            <i class="fa-solid fa-check text-primary-600 text-xs" aria-hidden="true"></i>
+            {{ scope }}
+          </li>
+        }
+      </ul>
+    </div>
+
+    <!-- Actions -->
+    <div class="grid grid-cols-2 gap-3">
+      <button type="button" class="btn-outlined w-full justify-center" (click)="deny()">
+        Cancel
+      </button>
+      <button type="button" class="btn-filled w-full justify-center" (click)="allow()">
+        Allow
+      </button>
+    </div>
+
+    <!-- Disclaimer -->
+    <p class="text-xs text-neutral-400 text-center mt-4">
+      This is a simulated OAuth screen for demonstration purposes.
+    </p>
+  </div>
+</main>

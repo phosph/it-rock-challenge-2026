@@ -4,6 +4,8 @@ import { authGuard } from './guards/auth.guard';
 export const routes: Routes = [
   { path: '', redirectTo: 'feed', pathMatch: 'full' },
   { path: 'auth', loadComponent: () => import('./pages/auth/auth') },
+  { path: 'auth/oauth/:provider', loadComponent: () => import('./pages/oauth-consent/oauth-consent') },
+  { path: 'auth/callback', loadComponent: () => import('./pages/oauth-callback/oauth-callback') },
   { path: 'feed', loadComponent: () => import('./pages/feed/feed'), canActivate: [authGuard] },
   { path: 'publish', loadComponent: () => import('./pages/publish/publish'), canActivate: [authGuard] },
   { path: 'profile', loadComponent: () => import('./pages/profile/profile'), canActivate: [authGuard] },
