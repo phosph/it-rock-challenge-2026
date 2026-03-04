@@ -44,18 +44,6 @@
 
     <!-- Right Actions -->
     <div class="flex items-center gap-3">
-      <!-- Notifications -->
-      <button
-        class="w-10 h-10 flex items-center justify-center rounded-full bg-white hover:bg-neutral-50 border border-neutral-100 shadow-sm transition-colors text-neutral-600 relative group"
-        aria-label="Notifications"
-        (click)="notificationClick.emit()"
-      >
-        <i class="fa-regular fa-bell group-hover:text-neutral-900" aria-hidden="true"></i>
-        @if (hasNotifications()) {
-          <span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border border-white animate-pulse" aria-hidden="true"></span>
-        }
-      </button>
-
       <!-- Search button — mobile/tablet only -->
       <button
         class="w-10 h-10 flex items-center justify-center rounded-full bg-white hover:bg-neutral-50 border border-neutral-100 shadow-sm transition-colors text-neutral-600 lg:hidden"

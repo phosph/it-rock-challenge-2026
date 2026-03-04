@@ -12,9 +12,6 @@ const SM_BREAKPOINT = '(min-width: 640px)';
   imports: [RouterLink, RouterLinkActive, UserProfileComponent],
 })
 export class AppHeaderComponent {
-  hasNotifications = input(false);
-
-  notificationClick = output<void>();
   menuClick = output<void>();
 
   readonly isDesktop = signal(false);

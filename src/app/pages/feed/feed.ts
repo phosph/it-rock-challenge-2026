@@ -10,7 +10,7 @@ import { FeedStore } from '@src/app/store/feed.store';
   imports: [AppHeaderComponent, FeedLayoutComponent, PostCardComponent],
   providers: [FeedStore],
   template: `
-    <app-header [hasNotifications]="true" />
+    <app-header />
 
     <app-feed-layout>
       <div sidebar-left>
