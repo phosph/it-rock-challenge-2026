@@ -1,0 +1,99 @@
+<!-- Login Card -->
+<main class="w-full sm:max-w-[440px] card shadow-floating relative z-10">
+
+  <!-- Top Decorative Bar -->
+  <div class="h-1.5 w-full bg-linear-to-r from-primary-600 via-primary-500 to-primary-600" aria-hidden="true"></div>
+
+  <div class="p-8 sm:p-10">
+    <!-- Header -->
+    <div class="text-center mb-8">
+      <div class="flex justify-center mb-6 relative">
+        <div
+          class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 bg-primary-50 rounded-full animate-pulse"
+          aria-hidden="true"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-primary-100 rounded-full"
+          aria-hidden="true"></div>
+        <div
+          class="relative w-12 h-12 bg-white rounded-xl shadow-md border border-neutral-100 flex items-center justify-center z-10">
+          <i class="fa-solid fa-leaf text-primary-600 text-xl" aria-hidden="true"></i>
+        </div>
+      </div>
+      <h1 class="text-[28px] font-semibold text-neutral-900 mb-2 tracking-tight leading-tight">Welcome back</h1>
+      <p class="text-neutral-500 text-sm sm:text-base leading-relaxed">Please enter your details to sign in.</p>
+    </div>
+
+    <!-- Login Form -->
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-5">
+
+      <!-- Email -->
+      <app-form-field label="Email" type="email" icon="fa-regular fa-envelope" placeholder="Enter your email"
+        formControlName="email" />
+
+      <!-- Password -->
+      <app-form-field label="Password" type="password" icon="fa-solid fa-lock" placeholder="••••••••"
+        formControlName="password" />
+
+      <!-- Remember Me & Forgot Password -->
+      <div class="flex items-center justify-between">
+        <div class="flex items-center">
+          <!-- TODO: extract checkbox atom -->
+          <input id="remember-me" type="checkbox" formControlName="rememberMe"
+            class="h-4 w-4 text-primary-600 focus:ring-primary-500 border-neutral-300 rounded cursor-pointer transition-colors" />
+          <label for="remember-me" class="ml-2 block text-sm text-neutral-600 cursor-pointer select-none">Remember for
+            30 days</label>
+        </div>
+        <a href="#" class="text-sm link">Forgot password?</a>
+      </div>
+
+      <!-- Error message -->
+      @if (authStore.error()) {
+      <div class="form-error" role="alert">
+        {{ authStore.error() }}
+      </div>
+      }
+
+      <!-- Submit -->
+      <button type="submit" [disabled]="authStore.loading()" class="btn-filled w-full justify-center">
+        @if (authStore.loading()) {
+        <i class="fa-solid fa-circle-notch fa-spin mr-2" aria-hidden="true"></i> Signing in...
+        } @else {
+        Sign in
+        }
+      </button>
+
+      <!-- Social Login -->
+      <div class="mt-6">
+        <div class="relative">
+          <div class="absolute inset-0 flex items-center" aria-hidden="true">
+            <div class="w-full border-t border-neutral-200"></div>
+          </div>
+          <div class="relative flex justify-center text-sm">
+            <span class="px-2 bg-white text-neutral-500">Or continue with</span>
+          </div>
+        </div>
+
+        <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <button type="button" class="btn-outlined w-full gap-3">
+            <i class="fa-brands fa-google text-lg" aria-hidden="true"></i>
+            <span>Google</span>
+          </button>
+          <button type="button" class="btn-outlined w-full gap-3">
+            <i class="fa-brands fa-twitter text-[#1DA1F2] text-lg" aria-hidden="true"></i>
+            <span>Twitter</span>
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <!-- Sign Up Link -->
+    <div class="mt-8 text-center">
+      <p class="text-sm text-neutral-600">
+        Don't have an account?
+        <a href="#" class="link ml-1">Sign up</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Bottom decorative -->
+  <div class="h-2 w-full bg-neutral-50 border-t border-neutral-100" aria-hidden="true"></div>
+</main>

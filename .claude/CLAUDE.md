@@ -33,6 +33,7 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 - Do NOT use `ngClass`, use `class` bindings instead
 - Do NOT use `ngStyle`, use `style` bindings instead
 - When using external templates/styles, use paths relative to the component TS file.
+- Every component MUST have styles applied to `:host`, as it is the actual HTML container of the component's content.
 
 ## State Management
 
@@ -74,7 +75,8 @@ This is a **basic social network** with mocked services (no real backend). Data 
 
 ### Styling & Design
 
-- **Tailwind CSS** for all styling
+- **Tailwind CSS v4** for all styling
+- In Tailwind v4, use `@utility` (not `@layer components`) to define custom utility classes that need to be usable with `@apply` from component CSS files via `@reference`.
 - **Responsive design** (mobile-first)
 - **Atomic Design** methodology for component organization:
   - `atoms/` — basic UI elements (buttons, inputs, avatars, etc.)

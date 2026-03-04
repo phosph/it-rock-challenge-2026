@@ -1,0 +1,17 @@
+@reference "../../../styles.css";
+
+:host {
+  @apply flex-grow flex items-center justify-center min-h-screen p-4 relative overflow-hidden;
+}
+
+@media (min-width: 640px) {
+  :host {
+    @apply p-6;
+  }
+}
+
+@media (min-width: 1024px) {
+  :host {
+    @apply p-8;
+  }
+}
