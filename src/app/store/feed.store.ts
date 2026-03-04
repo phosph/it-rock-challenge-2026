@@ -22,7 +22,7 @@ export const FeedStore = signalStore(
     async uploadPost(postInput: PostInput) {
       const post = await feedService.uploadPost(postInput)
       patchState(store, ({ posts }) => ({
-        posts: [...posts, post]
+        posts: [post, ...posts]
       }))
       return post
     }

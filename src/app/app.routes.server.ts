@@ -5,7 +5,7 @@ export const serverRoutes: ServerRoute[] = [
   { path: 'auth', renderMode: RenderMode.Prerender },
   { path: 'auth/oauth/:provider', renderMode: RenderMode.Server },
   { path: 'auth/callback', renderMode: RenderMode.Server },
-  { path: 'publish', renderMode: RenderMode.Server },
+  { path: 'feed/publish', renderMode: RenderMode.Server },
   { path: 'profile', renderMode: RenderMode.Server },
   { path: '**', renderMode: RenderMode.Prerender },
 ];
