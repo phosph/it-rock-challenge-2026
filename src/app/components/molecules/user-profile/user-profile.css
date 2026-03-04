@@ -1,0 +1,26 @@
+@reference "../../../../styles.css";
+
+:host {
+  @apply relative flex items-center gap-3 pl-3 border-l border-neutral-200;
+}
+
+.avatar-trigger {
+  anchor-name: --avatar;
+}
+
+.dropdown {
+  @apply w-56 bg-white rounded-xl shadow-floating border border-neutral-200 overflow-hidden;
+  position-anchor: --avatar;
+  inset: unset;
+  top: anchor(bottom);
+  right: anchor(left);
+  margin-top: 0.5rem;
+}
+
+.dropdown::backdrop {
+  background: transparent;
+}
+
+.dropdown-item {
+  @apply flex items-center gap-2.5 w-full px-4 py-2.5 text-sm text-neutral-700 hover:bg-neutral-50 transition-colors cursor-pointer;
+}

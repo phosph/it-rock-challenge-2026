@@ -1,18 +1,33 @@
-import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, input, output, PLATFORM_ID, signal } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { User } from '@src/app/interfaces/user.interface';
+import { UserProfileComponent } from '../../molecules/user-profile/user-profile';
+
+const SM_BREAKPOINT = '(min-width: 640px)';
 
 @Component({
   selector: 'app-header',
   templateUrl: './app-header.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive, UserProfileComponent],
 })
 export class AppHeaderComponent {
-  user = input<User | null>(null);
   hasNotifications = input(false);
 
   notificationClick = output<void>();
   menuClick = output<void>();
-  profileClick = output<void>();
+
+  readonly isDesktop = signal(false);
+
+  constructor() {
+    if (!isPlatformBrowser(inject(PLATFORM_ID))) return;
+
+    const mql = window.matchMedia(SM_BREAKPOINT);
+    this.isDesktop.set(mql.matches);
+
+    const destroyRef = inject(DestroyRef);
+    const handler = (e: MediaQueryListEvent) => this.isDesktop.set(e.matches);
+    mql.addEventListener('change', handler);
+    destroyRef.onDestroy(() => mql.removeEventListener('change', handler));
+  }
 }

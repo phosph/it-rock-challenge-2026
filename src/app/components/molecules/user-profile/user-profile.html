@@ -1,0 +1,37 @@
+@if (authStore.user(); as u) {
+  <div class="text-right hidden md:block">
+    <p class="text-sm font-bold text-neutral-900 leading-none">{{ u.displayName }}</p>
+    <p class="text-xs text-neutral-500">@{{ u.username }}</p>
+  </div>
+
+  <!-- Avatar trigger -->
+  <button
+    popovertarget="user-menu"
+    class="avatar-trigger w-10 h-10 rounded-full bg-linear-to-br from-primary-500 to-primary-900 p-0.5 shadow-md hover:shadow-lg transition-all cursor-pointer"
+    aria-label="User menu"
+  >
+    <img [src]="u.avatar" [alt]="u.displayName" class="w-full h-full rounded-full object-cover border-2 border-white">
+  </button>
+
+  <!-- Dropdown -->
+  <div popover id="user-menu" class="dropdown">
+    <div class="px-4 py-3 border-b border-neutral-100">
+      <p class="text-sm font-semibold text-neutral-900">{{ u.displayName }}</p>
+      <p class="text-xs text-neutral-500">{{ u.email }}</p>
+    </div>
+    <ul role="list" class="py-1">
+      <li>
+        <a routerLink="/profile" class="dropdown-item">
+          <i class="fa-regular fa-user" aria-hidden="true"></i>
+          Profile
+        </a>
+      </li>
+      <li>
+        <button (click)="logout()" class="dropdown-item text-red-600 hover:bg-red-50 hover:text-red-700">
+          <i class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i>
+          Log out
+        </button>
+      </li>
+    </ul>
+  </div>
+}
