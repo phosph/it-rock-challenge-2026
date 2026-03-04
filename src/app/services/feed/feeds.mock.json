@@ -1,0 +1,93 @@
+[
+  {
+    "id": "1",
+    "type": "image",
+    "author": {
+      "id": "u1",
+      "name": "Sarah Mitchell",
+      "avatarUrl": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+    },
+    "content": "Just finished an amazing hike in the mountains! The view from the top was absolutely breathtaking. Sometimes you need to disconnect to reconnect.",
+    "createdAt": "2 hours ago",
+    "stats": { "likes": 124, "comments": 18, "shares": 7 },
+    "liked": false,
+    "meta": "Yosemite",
+    "image": {
+      "imageUrl": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1470&q=80",
+      "alt": "Mountain landscape at sunset",
+      "caption": "Sony A7III"
+    }
+  },
+  {
+    "id": "2",
+    "type": "article",
+    "author": {
+      "id": "u2",
+      "name": "Alex Thompson",
+      "avatarUrl": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80"
+    },
+    "content": "New blog post is live! Check out my thoughts on the future of remote work and how it's changing our lives.",
+    "createdAt": "5 hours ago",
+    "stats": { "likes": 89, "comments": 12, "shares": 4 },
+    "liked": false,
+    "meta": "Public",
+    "article": {
+      "imageUrl": "https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?auto=format&fit=crop&w=1470&q=80",
+      "title": "The Future of Remote Work: 2025 Edition",
+      "description": "Remote work isn't just a trend anymore, it's a fundamental shift in how we structure our lives and productivity.",
+      "label": "Article"
+    }
+  },
+  {
+    "id": "3",
+    "type": "quote",
+    "author": {
+      "id": "u3",
+      "name": "Maria Garcia",
+      "avatarUrl": "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+    },
+    "content": "Coffee and code - the perfect combination for a productive Monday morning! What's your go-to productivity boost?",
+    "createdAt": "8 hours ago",
+    "stats": { "likes": 156, "comments": 32, "shares": 9 },
+    "liked": true,
+    "meta": "Sponsored",
+    "quote": "Productivity is never an accident. It is always the result of a commitment to excellence, intelligent planning, and focused effort."
+  },
+  {
+    "id": "4",
+    "type": "event",
+    "author": {
+      "id": "u4",
+      "name": "James Wilson",
+      "avatarUrl": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+    },
+    "content": "Excited to announce that I'll be speaking at Tech Summit 2025! Can't wait to share insights on AI and machine learning. See you there!",
+    "createdAt": "12 hours ago",
+    "stats": { "likes": 203, "comments": 45, "shares": 21 },
+    "liked": false,
+    "meta": "Tech Summit 2025",
+    "event": {
+      "imageUrl": "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1470&q=80",
+      "title": "Tech Summit 2025",
+      "location": "San Francisco, CA",
+      "date": "Nov 12-14"
+    }
+  },
+  {
+    "id": "5",
+    "type": "image",
+    "author": {
+      "id": "u3",
+      "name": "Maria Garcia",
+      "avatarUrl": "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+    },
+    "content": "Weekend vibes at the beach. Nothing beats the sound of waves and a good book.",
+    "createdAt": "1 day ago",
+    "stats": { "likes": 78, "comments": 6, "shares": 2 },
+    "liked": false,
+    "image": {
+      "imageUrl": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1470&q=80",
+      "alt": "Beach with turquoise water and white sand"
+    }
+  }
+]

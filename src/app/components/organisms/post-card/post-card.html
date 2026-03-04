@@ -1,0 +1,61 @@
+<!-- Header -->
+<app-post-header
+  class="mb-4"
+  [author]="post().author"
+  [timeAgo]="post().createdAt"
+  [meta]="post().meta"
+  [highlightMeta]="post().type === 'event'"
+/>
+
+<!-- Content -->
+<p class="text-neutral-600 text-sm leading-relaxed mb-4">{{ post().content }}</p>
+
+<!-- Type-specific content -->
+@switch (post().type) {
+  @case ('image') {
+    @if (post().image; as image) {
+      <app-image-preview class="mb-4" [image]="image" />
+    }
+  }
+  @case ('article') {
+    @if (post().article; as article) {
+      <app-article-preview class="mb-4" [article]="article" />
+    }
+  }
+  @case ('quote') {
+    @if (post().quote; as quote) {
+      <app-quote-block class="mb-4" [quote]="quote" />
+    }
+  }
+  @case ('event') {
+    @if (post().event; as event) {
+      <app-event-preview class="mb-4" [event]="event" />
+    }
+  }
+}
+
+<!-- Stats -->
+<app-post-stats class="mb-4" [stats]="post().stats" [liked]="post().liked" />
+
+<!-- Actions -->
+<div class="flex items-center justify-between border-t border-neutral-100 pt-3" role="group" aria-label="Post actions">
+  @if (post().liked) {
+    <button class="action-btn group text-red-500 bg-red-50 hover:bg-red-100" (click)="like.emit()" aria-label="Unlike post" aria-pressed="true">
+      <i class="action-btn-icon group-hover:scale-110 fa-solid fa-heart" aria-hidden="true"></i>
+      <span class="action-btn-label">Liked</span>
+    </button>
+  } @else {
+    <button class="action-btn group text-neutral-500 hover:bg-neutral-50 hover:text-red-500" (click)="like.emit()" aria-label="Like post" aria-pressed="false">
+      <i class="action-btn-icon group-hover:scale-110 fa-regular fa-heart" aria-hidden="true"></i>
+      <span class="action-btn-label">Like</span>
+    </button>
+  }
+  <button class="action-btn group text-neutral-500 hover:bg-neutral-50 hover:text-blue-500" (click)="comment.emit()" aria-label="Comment on post">
+    <i class="action-btn-icon group-hover:scale-110 fa-regular fa-comment" aria-hidden="true"></i>
+    <span class="action-btn-label">Comment</span>
+  </button>
+  <button class="action-btn group text-neutral-500 hover:bg-neutral-50 hover:text-primary-500" (click)="share.emit()" aria-label="Share post">
+    <i class="action-btn-icon group-hover:scale-110 fa-solid fa-share" aria-hidden="true"></i>
+    <span class="action-btn-label">Share</span>
+  </button>
+</div>

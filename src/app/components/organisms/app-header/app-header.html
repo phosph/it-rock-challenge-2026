@@ -1,0 +1,98 @@
+<header class="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-neutral-100 shadow-sm transition-all duration-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    <!-- Logo + Nav -->
+    <div class="flex items-center gap-10">
+      <a routerLink="/feed" class="flex items-center gap-3 cursor-pointer">
+        <div class="w-10 h-10 rounded-full bg-linear-to-tr from-primary-100 to-accent-light flex items-center justify-center text-primary-600 shadow-sm hover:scale-105 transition-transform">
+          <i class="fa-solid fa-leaf text-lg" aria-hidden="true"></i>
+        </div>
+        <div>
+          <h1 class="text-lg md:text-xl font-bold tracking-tight text-neutral-900 leading-none">Social Feed</h1>
+          <!-- Mobile: welcome message / Desktop: subtitle -->
+          @if (user(); as u) {
+            <p class="text-xs text-neutral-500 font-medium lg:hidden">Welcome back, {{ u.displayName }}</p>
+          }
+          <span class="text-[10px] text-primary-600 font-bold uppercase tracking-wider hidden lg:inline">Community</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="hidden lg:flex items-center gap-1" aria-label="Main navigation">
+        <a routerLink="/feed" routerLinkActive="bg-neutral-100 text-neutral-900" class="flex items-center gap-2 px-4 py-2 rounded-xl text-neutral-500 hover:bg-neutral-50 hover:text-neutral-900 font-medium transition-colors">
+          <i class="fa-solid fa-house text-sm" aria-hidden="true"></i>
+          <span>Feed</span>
+        </a>
+        <a routerLink="/friends" routerLinkActive="bg-neutral-100 text-neutral-900" class="flex items-center gap-2 px-4 py-2 rounded-xl text-neutral-500 hover:bg-neutral-50 hover:text-neutral-900 font-medium transition-colors">
+          <i class="fa-solid fa-user-group text-sm" aria-hidden="true"></i>
+          <span>Friends</span>
+        </a>
+        <a routerLink="/events" routerLinkActive="bg-neutral-100 text-neutral-900" class="flex items-center gap-2 px-4 py-2 rounded-xl text-neutral-500 hover:bg-neutral-50 hover:text-neutral-900 font-medium transition-colors">
+          <i class="fa-solid fa-calendar-day text-sm" aria-hidden="true"></i>
+          <span>Events</span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- Search Bar — desktop only -->
+    <div class="hidden lg:flex flex-1 max-w-md mx-8 relative group">
+      <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+        <i class="fa-solid fa-search text-neutral-400 group-focus-within:text-primary-500 transition-colors" aria-hidden="true"></i>
+      </div>
+      <input
+        type="search"
+        class="block w-full pl-10 pr-3 py-2.5 border-none rounded-2xl bg-neutral-100 text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:bg-white transition-all shadow-inner"
+        placeholder="Search for people, posts, or tags..."
+        aria-label="Search"
+      >
+    </div>
+
+    <!-- Right Actions -->
+    <div class="flex items-center gap-3">
+      <!-- Notifications -->
+      <button
+        class="w-10 h-10 flex items-center justify-center rounded-full bg-white hover:bg-neutral-50 border border-neutral-100 shadow-sm transition-colors text-neutral-600 relative group"
+        aria-label="Notifications"
+        (click)="notificationClick.emit()"
+      >
+        <i class="fa-regular fa-bell group-hover:text-neutral-900" aria-hidden="true"></i>
+        @if (hasNotifications()) {
+          <span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border border-white animate-pulse" aria-hidden="true"></span>
+        }
+      </button>
+
+      <!-- Search button — mobile/tablet only -->
+      <button
+        class="w-10 h-10 flex items-center justify-center rounded-full bg-white hover:bg-neutral-50 border border-neutral-100 shadow-sm transition-colors text-neutral-600 lg:hidden"
+        aria-label="Search"
+      >
+        <i class="fa-solid fa-search" aria-hidden="true"></i>
+      </button>
+
+      <!-- User profile — tablet+ -->
+      @if (user(); as u) {
+        <div class="hidden sm:flex items-center gap-3 pl-3 border-l border-neutral-200">
+          <div class="text-right hidden md:block">
+            <p class="text-sm font-bold text-neutral-900 leading-none">{{ u.displayName }}</p>
+            <p class="text-xs text-neutral-500">@{{ u.username }}</p>
+          </div>
+          <button
+            class="w-10 h-10 rounded-full bg-linear-to-br from-primary-500 to-primary-900 p-0.5 shadow-md hover:shadow-lg transition-all cursor-pointer"
+            (click)="profileClick.emit()"
+            aria-label="Profile"
+          >
+            <img [src]="u.avatar" [alt]="u.displayName" class="w-full h-full rounded-full object-cover border-2 border-white">
+          </button>
+        </div>
+      }
+
+      <!-- Hamburger — mobile only -->
+      <button
+        class="w-10 h-10 flex items-center justify-center rounded-full bg-white hover:bg-neutral-50 border border-neutral-100 shadow-sm transition-colors text-neutral-600 md:hidden ml-1"
+        aria-label="Menu"
+        (click)="menuClick.emit()"
+      >
+        <i class="fa-solid fa-bars" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+</header>

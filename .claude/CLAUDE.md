@@ -51,8 +51,13 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 ## Services
 
 - Design services around a single responsibility
-- Use the `providedIn: 'root'` option for singleton services
 - Use the `inject()` function instead of constructor injection
+- All services follow this pattern:
+  - **Interface**: `src/app/interfaces/<name>-service.interface.ts` — async method contracts
+  - **Mock implementation**: `src/app/services/<name>/<name>.service.ts` — class `Mock<Name>ServiceImpl implements <Name>Service`, decorated with `@Injectable()` (no `providedIn`), uses a private `#mockedDb` Map as in-memory DB, returns `structuredClone()` copies
+  - **Mock data**: `src/app/services/<name>/<name>s.mock.json`
+  - **Token + provider factory**: `src/app/services/<name>/index.ts` — exports `InjectionToken<Service>` and `provideMock<Name>Service(): Provider` factory using `useClass`
+  - **Registration**: All service providers are registered in `src/app/app.config.ts`
 
 ---
 
