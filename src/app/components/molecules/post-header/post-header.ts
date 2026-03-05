@@ -27,7 +27,7 @@ import { AvatarComponent } from '@src/app/components/atoms/avatar/avatar';
         aria-label="Post options"
         (click)="options.emit()"
       >
-        <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
+        <span class="material-symbols-outlined" aria-hidden="true">more_horiz</span>
       </button>
     </div>
   `,

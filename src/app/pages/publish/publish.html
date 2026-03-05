@@ -16,7 +16,7 @@
             class="w-9 h-9 rounded-full bg-neutral-100 flex items-center justify-center text-neutral-500 hover:bg-neutral-200 hover:text-neutral-700 transition-colors"
             (click)="close()"
             aria-label="Close">
-      <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      <span class="material-symbols-outlined" aria-hidden="true">close</span>
     </button>
   </header>
 
@@ -70,7 +70,7 @@
                   (click)="clearImage()"
                   class="absolute top-2 right-2 w-7 h-7 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-black/80 transition-colors text-xs"
                   aria-label="Remove image">
-            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+            <span class="material-symbols-outlined text-sm" aria-hidden="true">close</span>
           </button>
         </div>
       }
@@ -86,7 +86,7 @@
               (click)="toggleImageFields()"
               [attr.aria-pressed]="showImageFields()"
               aria-label="Add image">
-        <i class="fa-regular fa-image" aria-hidden="true"></i>
+        <span class="material-symbols-outlined" aria-hidden="true">image</span>
       </button>
     </div>
     <button type="button"

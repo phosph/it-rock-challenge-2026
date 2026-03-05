@@ -41,21 +41,21 @@
 <div class="flex items-center justify-between border-t border-neutral-100 pt-3" role="group" aria-label="Post actions">
   @if (post().liked) {
     <button class="action-btn group text-red-500 bg-red-50 hover:bg-red-100" (click)="like.emit()" aria-label="Unlike post" aria-pressed="true">
-      <i class="action-btn-icon group-hover:scale-110 fa-solid fa-heart" aria-hidden="true"></i>
+      <span class="action-btn-icon group-hover:scale-110 material-symbols-outlined filled" aria-hidden="true">favorite</span>
       <span class="action-btn-label">Liked</span>
     </button>
   } @else {
     <button class="action-btn group text-neutral-500 hover:bg-neutral-50 hover:text-red-500" (click)="like.emit()" aria-label="Like post" aria-pressed="false">
-      <i class="action-btn-icon group-hover:scale-110 fa-regular fa-heart" aria-hidden="true"></i>
+      <span class="action-btn-icon group-hover:scale-110 material-symbols-outlined" aria-hidden="true">favorite</span>
       <span class="action-btn-label">Like</span>
     </button>
   }
   <button class="action-btn group text-neutral-500 hover:bg-neutral-50 hover:text-blue-500" (click)="comment.emit()" aria-label="Comment on post">
-    <i class="action-btn-icon group-hover:scale-110 fa-regular fa-comment" aria-hidden="true"></i>
+    <span class="action-btn-icon group-hover:scale-110 material-symbols-outlined" aria-hidden="true">chat_bubble</span>
     <span class="action-btn-label">Comment</span>
   </button>
   <button class="action-btn group text-neutral-500 hover:bg-neutral-50 hover:text-primary-500" (click)="share.emit()" aria-label="Share post">
-    <i class="action-btn-icon group-hover:scale-110 fa-solid fa-share" aria-hidden="true"></i>
+    <span class="action-btn-icon group-hover:scale-110 material-symbols-outlined" aria-hidden="true">share</span>
     <span class="action-btn-label">Share</span>
   </button>
 </div>

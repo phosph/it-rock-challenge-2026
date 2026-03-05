@@ -9,12 +9,12 @@ import { PostStats } from '@src/app/interfaces/post.interface';
     <div class="flex items-center justify-between text-xs text-neutral-500 px-1">
       <div class="flex items-center gap-1">
         <div class="flex -space-x-2" aria-hidden="true">
-          <div class="w-5 h-5 rounded-full bg-blue-500 border border-white flex items-center justify-center text-[8px] text-white">
-            <i class="fa-solid fa-thumbs-up"></i>
+          <div class="w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center text-white">
+            <span class="material-symbols-outlined filled text-[12px]!">thumb_up</span>
           </div>
           @if (liked()) {
-            <div class="w-5 h-5 rounded-full bg-red-500 border border-white flex items-center justify-center text-[8px] text-white">
-              <i class="fa-solid fa-heart"></i>
+            <div class="w-5 h-5 rounded-full bg-red-500 flex items-center justify-center text-white">
+              <span class="material-symbols-outlined filled text-[12px]!">favorite</span>
             </div>
           }
         </div>

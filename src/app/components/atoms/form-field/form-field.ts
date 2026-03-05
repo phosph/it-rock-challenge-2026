@@ -11,8 +11,8 @@ import { ControlValueAccessor, FormControl, NgControl, ReactiveFormsModule } fro
     <label [attr.for]="id()" class="block text-sm font-medium text-neutral-700">{{ label() }}</label>
     <div class="relative group">
       <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
-        <i [class]="icon() + ' text-neutral-400 group-focus-within:text-primary-500 transition-colors'"
-          aria-hidden="true"></i>
+        <span class="material-symbols-outlined text-xl text-neutral-400 group-focus-within:text-primary-500 transition-colors"
+          aria-hidden="true">{{ icon() }}</span>
       </div>
       <input
         [type]="type()"

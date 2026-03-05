@@ -6,7 +6,7 @@ type Provider = 'google' | 'twitter';
 interface ProviderConfig {
   name: string;
   color: string;
-  iconClass: string;
+  iconName: string;
   user: string;
   userEmail: string;
   scopes: string[];
@@ -16,7 +16,7 @@ const PROVIDERS: Record<Provider, ProviderConfig> = {
   google: {
     name: 'Google',
     color: '#4285F4',
-    iconClass: 'fa-brands fa-google',
+    iconName: 'google' as const,
     user: 'Galangal',
     userEmail: 'galangal@example.com',
     scopes: ['View your basic profile info', 'View your email address'],
@@ -24,7 +24,7 @@ const PROVIDERS: Record<Provider, ProviderConfig> = {
   twitter: {
     name: 'Twitter',
     color: '#1DA1F2',
-    iconClass: 'fa-brands fa-twitter',
+    iconName: 'twitter' as const,
     user: 'Sarah Mitchell',
     userEmail: 'sarah@example.com',
     scopes: ['Read your profile', 'Read your email address'],
