@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import type { AuhtService, LoginData, OAuthExchangeData, OAuthProvider } from '../../interfaces/auth-service.interface';
+import type { AuthService, LoginData, OAuthExchangeData, OAuthProvider } from '../../interfaces/auth-service.interface';
 import type { User } from '../../interfaces/user.interface';
 import { AuthError, AuthErrorCode } from '../../interfaces/auth-error';
 import mockUsers from './users.mock.json';
@@ -9,7 +9,7 @@ interface MockUser extends User {
 }
 
 @Injectable()
-export class MockAuthServiceImpl implements AuhtService {
+export class MockAuthServiceImpl implements AuthService {
   readonly #mockedDb = new Map<string, MockUser>(
     mockUsers.map(user => [user.email, user as MockUser])
   );

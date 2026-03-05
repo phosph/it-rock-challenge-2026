@@ -12,7 +12,7 @@ export interface OAuthExchangeData {
   provider: OAuthProvider;
 }
 
-export interface AuhtService {
+export interface AuthService {
   /**
    * Authenticates a user with email and password.
    * @throws {AuthError} `INVALID_CREDENTIALS` — email not found or wrong password.
