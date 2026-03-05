@@ -1,0 +1,23 @@
+<label [attr.for]="id()" class="block text-sm font-medium text-neutral-700">{{ label() }}</label>
+<div class="relative group">
+  <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+    <span class="material-symbols-outlined text-xl transition-colors"
+      [class]="showError ? 'text-red-400' : 'text-neutral-400 group-focus-within:text-primary-500'"
+      aria-hidden="true">{{ icon() }}</span>
+  </div>
+  <input
+    [type]="type()"
+    [id]="id()"
+    [formControl]="inner"
+    [placeholder]="placeholder()"
+    class="form-input pl-10 pr-3.5 py-2.5 sm:text-[15px]"
+    [class.border-red-400]="showError"
+    [class.focus:ring-red-500/20]="showError"
+    [attr.aria-invalid]="showError"
+    [attr.aria-describedby]="showError ? id() + '-error' : null"
+    (blur)="onBlur()"
+  />
+</div>
+@if (showError) {
+  <p [id]="id() + '-error'" class="text-sm text-red-600" role="alert">{{ errorMessage }}</p>
+}

@@ -7,23 +7,7 @@ import { ControlValueAccessor, FormControl, NgControl, ReactiveFormsModule } fro
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ReactiveFormsModule],
   host: { class: 'block space-y-1.5' },
-  template: `
-    <label [attr.for]="id()" class="block text-sm font-medium text-neutral-700">{{ label() }}</label>
-    <div class="relative group">
-      <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
-        <span class="material-symbols-outlined text-xl text-neutral-400 group-focus-within:text-primary-500 transition-colors"
-          aria-hidden="true">{{ icon() }}</span>
-      </div>
-      <input
-        [type]="type()"
-        [id]="id()"
-        [formControl]="inner"
-        [placeholder]="placeholder()"
-        class="form-input pl-10 pr-3.5 py-2.5 sm:text-[15px]"
-        [attr.aria-invalid]="inner.touched && inner.invalid"
-      />
-    </div>
-  `,
+  templateUrl: './form-field.html',
 })
 export class FormFieldComponent implements OnInit, ControlValueAccessor {
   label = input.required<string>();
@@ -38,7 +22,6 @@ export class FormFieldComponent implements OnInit, ControlValueAccessor {
 
   readonly inner = new FormControl('', { nonNullable: true });
 
-
   constructor() {
     if (this.ngControl !== null) {
       // Setting the value accessor directly (instead of using
@@ -47,26 +30,31 @@ export class FormFieldComponent implements OnInit, ControlValueAccessor {
     }
   }
 
+  get showError(): boolean {
+    const ctrl = this.ngControl?.control;
+    return !!ctrl && ctrl.invalid && ctrl.touched;
+  }
+
+  get errorMessage(): string {
+    const errors = this.ngControl?.control?.errors;
+    if (!errors) return '';
+    if (errors['required']) return 'This field is required';
+    if (errors['email']) return 'Enter a valid email address';
+    return 'Invalid value';
+  }
+
   ngOnInit() {
     if (!this.ngControl) return;
 
-    // Cuando el control interno cambia → notificar al form padre
     this.inner.valueChanges
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(value => {
         this._onChange(value);
       });
+  }
 
-    // Cuando el control interno es touched → notificar al form padre
-    // statusChanges captura el momento en que el control interno
-    // pasa de PENDING a cualquier otro estado, incluyendo touched
-    // this.inner.events
-    //   .pipe(takeUntilDestroyed(this.destroyRef))
-    //   .subscribe(event => {
-    //     if (event.type === 'touched') {
-    //       this._onTouched();
-    //     }
-    //   });
+  onBlur(): void {
+    this._onTouched();
   }
 
   private _onTouched: () => void = () => { };
