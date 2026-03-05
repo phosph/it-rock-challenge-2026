@@ -75,13 +75,16 @@ This is a **basic social network** with mocked services (no real backend). Data 
 1. **Feed** — main content feed with posts
 2. **Login/Signup** — authentication screen
 3. **Publish Content** — create new posts
-4. **User Administration** — profile/settings management
+4. **Post Detail** — single post view with comments
+5. **User Administration** — profile/settings management (stub)
 
 ### Styling & Design
 
 - **Tailwind CSS v4** for all styling
 - In Tailwind v4, use `@utility` (not `@layer components`) to define custom utility classes that need to be usable with `@apply` from component CSS files via `@reference`.
 - **Responsive design** (mobile-first)
+- **Google Material Symbols** (Outlined, variable font via CDN) for icons; brand icons use inline SVGs
+- **Inter** font (self-hosted)
 - **Atomic Design** methodology for component organization:
   - `atoms/` — basic UI elements (buttons, inputs, avatars, etc.)
   - `molecules/` — groups of atoms (search bar, form field, etc.)
@@ -96,11 +99,82 @@ This is a **basic social network** with mocked services (no real backend). Data 
   1. Login form
   2. Post card (publication card)
 
-### Project Structure
+### Current Project Structure
 
-- **Interfaces:** All TypeScript interfaces must be in `src/app/interfaces/`
-- **Pages:** All page components must be in `src/app/pages/`
-- **Store:** Global state store must be in `src/app/store/`
+```
+src/app/
+├── components/
+│   ├── atoms/
+│   │   ├── article-preview/       # Article link preview
+│   │   ├── avatar/                # User avatar
+│   │   ├── event-preview/         # Event preview card
+│   │   ├── form-field/            # Reusable form field wrapper
+│   │   ├── image-preview/         # Image preview
+│   │   ├── post-stats/            # Post stats (likes, comments count)
+│   │   └── quote-block/           # Quote/repost block
+│   ├── molecules/
+│   │   ├── comment-input/         # Comment text input
+│   │   ├── comment-item/          # Single comment display
+│   │   ├── post-header/           # Post author + timestamp header
+│   │   └── user-profile/          # User profile card (sidebar)
+│   ├── organisms/
+│   │   ├── app-header/            # Top navigation bar
+│   │   └── post-card/             # Full post card (feed item)
+│   └── templates/
+│       └── feed-layout/           # Feed page layout wrapper
+├── guards/
+│   ├── auth.guard.ts              # Redirects unauthenticated users to /auth
+│   └── guest.guard.ts             # Redirects authenticated users to /feed
+├── interfaces/
+│   ├── auth-error.ts              # AuthError class + AuthErrorCode enum
+│   ├── auth-service.interface.ts  # AuthService contract
+│   ├── comment.interface.ts       # Comment + CommentInput interfaces
+│   ├── feed-error.ts              # FeedError class + FeedErrorCode enum
+│   ├── feed-service.interface.ts  # FeedService contract
+│   ├── post.interface.ts          # Post interface
+│   └── user.interface.ts          # User interface
+├── pages/
+│   ├── auth/                      # Login/signup page
+│   ├── feed/                      # Main feed page (parent route)
+│   ├── oauth-callback/            # OAuth callback handler
+│   ├── oauth-consent/             # Mock OAuth consent screen
+│   ├── post-detail/               # Single post + comments (child of feed)
+│   ├── profile/                   # User profile page (stub)
+│   └── publish/                   # Create new post (child of feed)
+├── pipes/
+│   └── time-ago.pipe.ts           # Relative time formatting ("5 min ago")
+├── services/
+│   ├── auth/
+│   │   ├── auth.service.ts        # MockAuthServiceImpl
+│   │   ├── users.mock.json        # Seed users
+│   │   └── index.ts               # AUTH_SERVICE token + provider factory
+│   └── feed/
+│       ├── feed.service.ts        # MockFeedServiceImpl
+│       ├── feeds.mock.json        # Seed posts + comments
+│       └── index.ts               # FEED_SERVICE token + provider factory
+├── store/
+│   ├── auth.store.ts              # Auth state (@ngrx/signals)
+│   └── feed.store.ts              # Feed state (@ngrx/signals)
+├── app.ts                         # Root component
+├── app.html                       # Root template
+├── app.config.ts                  # App providers (router, hydration, services)
+├── app.config.server.ts           # Server-side config
+├── app.routes.ts                  # Route definitions
+└── app.routes.server.ts           # SSR/prerender route config
+```
+
+### Routes
+
+| Path                       | Component        | Guard   | Notes                          |
+|----------------------------|------------------|---------|--------------------------------|
+| `/`                        | —                | —       | Redirects to `/feed`           |
+| `/auth`                    | AuthPage         | guest   | Login/signup                   |
+| `/auth/oauth/:provider`   | OAuthConsentPage | guest   | Mock OAuth consent screen      |
+| `/auth/callback`          | OAuthCallbackPage| guest   | Processes mock OAuth token     |
+| `/feed`                    | FeedPage         | auth    | Main feed                      |
+| `/feed/publish`           | PublishPage      | auth    | Create post (child route)      |
+| `/feed/:postId`           | PostDetailPage   | auth    | Post detail + comments (child) |
+| `/profile`                | ProfilePage      | auth    | User profile (stub)            |
 
 ### Authentication
 
@@ -109,7 +183,54 @@ This is a **basic social network** with mocked services (no real backend). Data 
 - Auth tokens and user session are stored in **LocalStorage**
 - All auth services must be mocked (no HTTP calls to external providers)
 
+### State Management
+
+- **`@ngrx/signals`** for global state (auth store + feed store)
+- Signals for local component state
+
 ### Rendering Strategy
 
 - Maximize **SSR** (Server-Side Rendering) usage
 - Maximize **Prerender** for all eligible routes
+- **No real backend** — all data lives in LocalStorage (client only). Anything that depends on state/memory/persistence must render on the client, not during SSR.
+
+#### Client-only data pattern
+
+Since there is no backend, all data-dependent content **must** load exclusively in the browser. Apply this pattern in page components:
+
+1. **Guard data loading with `isPlatformBrowser`** in `ngOnInit()`:
+   ```typescript
+   private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+
+   ngOnInit(): void {
+     if (!this.isBrowser) return;
+     this.store.loadData();
+   }
+   ```
+
+2. **Manage loading state locally** with a `signal()` in the component (not in the store). Wrap the promise with `from()` and pipe through `takeUntilDestroyed(this.destroyRef)` to auto-cancel if the component is destroyed before completion:
+   ```typescript
+   readonly destroyRef = inject(DestroyRef);
+   readonly loading = signal(true);
+
+   ngOnInit(): void {
+     if (!postId || !this.isBrowser) return;
+     from(this.store.loadPost(postId)).pipe(
+       takeUntilDestroyed(this.destroyRef),
+     ).subscribe({
+       complete: () => this.loading.set(false),
+       error: () => this.handleError()
+     });
+   }
+   ```
+
+3. **Wrap data-dependent template blocks** with `@defer (on immediate)` to skip server rendering while still rendering immediately on the client:
+   ```html
+   @defer (on immediate) {
+     @for (item of items(); track item.id) { ... }
+   }
+   ```
+
+4. **Store methods must NOT auto-load data** in `withHooks({ onInit })`. Data loading is always triggered from the page component's `ngOnInit()` behind the `isPlatformBrowser` guard.
+
+5. **Show a loading indicator** while data loads (spinner, skeleton, etc.) using the local `loading()` signal and `@else if (loading())` blocks.

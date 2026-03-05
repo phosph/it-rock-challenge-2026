@@ -1,6 +1,6 @@
 import { InjectionToken, Provider } from "@angular/core";
 import type { FeedService } from "../../interfaces/feed-service.interface";
-import { MockFeedServiceImpl } from "./feed.service";
+import { MockFeedServiceImpl } from "./mock-service/feed.service";
 
 export const FEED_SERVICE = new InjectionToken<FeedService>("FEED_SERVICE")
 

@@ -1,9 +1,8 @@
 import { inject } from '@angular/core';
-import { patchState, signalStore, withHooks, withMethods, withState } from '@ngrx/signals';
+import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
 import type { CommentInput } from '@src/app/interfaces/comment.interface';
 import type { Post, PostInput } from '@src/app/interfaces/post.interface';
 import { FEED_SERVICE } from '../services/feed';
-import { AuthStore } from './auth.store';
 
 interface FeedState {
   posts: Post[];
@@ -17,7 +16,7 @@ export const FeedStore = signalStore(
     selectedPost: null,
     loading: false,
   }),
-  withMethods((store, feedService = inject(FEED_SERVICE), authStore = inject(AuthStore)) => ({
+  withMethods((store, feedService = inject(FEED_SERVICE)) => ({
     async loadAll() {
       patchState(store, { loading: true });
       const posts = await feedService.getAll();
@@ -25,8 +24,7 @@ export const FeedStore = signalStore(
     },
 
     async uploadPost(postInput: PostInput) {
-      const token = authStore.token();
-      const post = await feedService.uploadPost(postInput, token)
+      const post = await feedService.uploadPost(postInput);
       patchState(store, ({ posts }) => ({
         posts: [post, ...posts]
       }))
@@ -40,8 +38,7 @@ export const FeedStore = signalStore(
     },
 
     async addComment(postId: string, commentInput: CommentInput) {
-      const token = authStore.token();
-      const comment = await feedService.addComment(postId, commentInput, token);
+      const comment = await feedService.addComment(postId, commentInput);
 
       patchState(store, (state) => {
         let { posts, selectedPost } = state;
@@ -54,7 +51,6 @@ export const FeedStore = signalStore(
           }
         }
 
-
         posts = posts.map(post => post.id === postId
           ? { ...post, stats: { ...post.stats, comments: post.stats.comments + 1 } }
           : post
@@ -63,13 +59,27 @@ export const FeedStore = signalStore(
         return ({ selectedPost, posts });
       });
     },
+
+    async toggleLike(postId: string) {
+      const updatedPost = await feedService.toggleLike(postId);
+
+      patchState(store, (state) => {
+        const posts = state.posts.map(p =>
+          p.id === postId
+            ? { ...p, liked: updatedPost.liked, stats: { ...p.stats, likes: updatedPost.stats.likes } }
+            : p
+        );
+
+        const selectedPost = state.selectedPost?.id === postId
+          ? { ...state.selectedPost, liked: updatedPost.liked, stats: { ...state.selectedPost.stats, likes: updatedPost.stats.likes } }
+          : state.selectedPost;
+
+        return { posts, selectedPost };
+      });
+    },
+
     clearSelectedPost() {
       patchState(store, { selectedPost: null });
     },
   })),
-  withHooks({
-    onInit(store) {
-      store.loadAll();
-    },
-  }),
 );

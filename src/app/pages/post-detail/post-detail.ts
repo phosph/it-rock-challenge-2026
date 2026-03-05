@@ -1,10 +1,13 @@
-import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnDestroy, OnInit, PLATFORM_ID, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PostCardComponent } from '@src/app/components/organisms/post-card/post-card';
 import { CommentInputComponent } from '@src/app/components/molecules/comment-input/comment-input';
 import { CommentItemComponent } from '@src/app/components/molecules/comment-item/comment-item';
+import { PostCardComponent } from '@src/app/components/organisms/post-card/post-card';
 import { AuthStore } from '@src/app/store/auth.store';
 import { FeedStore } from '@src/app/store/feed.store';
+import { debounceTime, from } from 'rxjs';
 
 @Component({
   selector: 'app-post-detail',
@@ -18,15 +21,27 @@ export default class PostDetailPage implements OnInit, OnDestroy {
   private readonly router = inject(Router);
   private readonly feedStore = inject(FeedStore);
   private readonly authStore = inject(AuthStore);
+  readonly destroyRef = inject(DestroyRef)
+  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
   readonly post = this.feedStore.selectedPost;
   readonly user = this.authStore.user;
-  readonly loading = this.feedStore.loading;
+  readonly loading = signal(true);
 
   ngOnInit(): void {
     const postId = this.route.snapshot.paramMap.get('postId');
-    if (postId) {
-      this.feedStore.loadPost(postId);
+
+    // NOTA: en circustancias normales esto no debería cargarse solo en browser
+    // pero no tenemos server ni DB, y los posts están en el cliente en el localstorage
+    // así que estoy forzado a cargarlo solamente en el browser
+    if (postId && this.isBrowser) {
+      from(this.feedStore.loadPost(postId)).pipe(
+        takeUntilDestroyed(this.destroyRef),
+        debounceTime(4000)
+      ).subscribe({
+        complete: () => this.loading.set(false),
+        error: () => this.close()
+      })
     }
   }
 
@@ -40,6 +55,12 @@ export default class PostDetailPage implements OnInit, OnDestroy {
 
   onBackdropClick(event: MouseEvent): void {
     if (event.target === event.currentTarget) this.close();
+  }
+
+  onLike(): void {
+    const postId = this.post()?.id;
+    if (!postId) return;
+    this.feedStore.toggleLike(postId);
   }
 
   async onCommentSubmit(content: string): Promise<void> {

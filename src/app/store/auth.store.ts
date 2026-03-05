@@ -1,4 +1,4 @@
-import { computed, inject, PLATFORM_ID } from '@angular/core';
+import { computed, inject, InjectionToken, PLATFORM_ID, Signal } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals';
 import type { User } from '@src/app/interfaces/user.interface';
@@ -14,6 +14,11 @@ interface AuthState {
   loading: boolean;
   error: string;
 }
+
+export const AUTH_TOKEN = new InjectionToken<Signal<string>>('AUTH_TOKEN', {
+  providedIn: 'root',
+  factory: () => inject(AuthStore).token
+})
 
 export const AuthStore = signalStore(
   { providedIn: 'root' },

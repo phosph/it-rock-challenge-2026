@@ -9,8 +9,8 @@
     },
     "content": "Just finished an amazing hike in the mountains! The view from the top was absolutely breathtaking. Sometimes you need to disconnect to reconnect.",
     "createdAt": "2 hours ago",
-    "stats": { "likes": 124, "comments": 18, "shares": 7 },
-    "liked": false,
+    "likedBy": ["u2", "u3", "u4", "fake-1", "fake-2", "fake-3", "fake-4", "fake-5", "fake-6", "fake-7", "fake-8", "fake-9", "fake-10", "fake-11", "fake-12", "fake-13", "fake-14", "fake-15", "fake-16", "fake-17", "fake-18", "fake-19", "fake-20", "fake-21", "fake-22", "fake-23", "fake-24", "fake-25", "fake-26", "fake-27", "fake-28", "fake-29", "fake-30", "fake-31", "fake-32", "fake-33", "fake-34", "fake-35", "fake-36", "fake-37", "fake-38", "fake-39", "fake-40", "fake-41", "fake-42", "fake-43", "fake-44", "fake-45", "fake-46", "fake-47", "fake-48", "fake-49", "fake-50", "fake-51", "fake-52", "fake-53", "fake-54", "fake-55", "fake-56", "fake-57", "fake-58", "fake-59", "fake-60", "fake-61", "fake-62", "fake-63", "fake-64", "fake-65", "fake-66", "fake-67", "fake-68", "fake-69", "fake-70", "fake-71", "fake-72", "fake-73", "fake-74", "fake-75", "fake-76", "fake-77", "fake-78", "fake-79", "fake-80", "fake-81", "fake-82", "fake-83", "fake-84", "fake-85", "fake-86", "fake-87", "fake-88", "fake-89", "fake-90", "fake-91", "fake-92", "fake-93", "fake-94", "fake-95", "fake-96", "fake-97", "fake-98", "fake-99", "fake-100", "fake-101", "fake-102", "fake-103", "fake-104", "fake-105", "fake-106", "fake-107", "fake-108", "fake-109", "fake-110", "fake-111", "fake-112", "fake-113", "fake-114", "fake-115", "fake-116", "fake-117", "fake-118", "fake-119", "fake-120", "fake-121"],
+    "shares": 7,
     "meta": "Yosemite",
     "image": {
       "imageUrl": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1470&q=80",
@@ -42,8 +42,8 @@
     },
     "content": "New blog post is live! Check out my thoughts on the future of remote work and how it's changing our lives.",
     "createdAt": "5 hours ago",
-    "stats": { "likes": 89, "comments": 12, "shares": 4 },
-    "liked": false,
+    "likedBy": ["u1", "u3", "u4", "fake-1", "fake-2", "fake-3", "fake-4", "fake-5", "fake-6", "fake-7", "fake-8", "fake-9", "fake-10", "fake-11", "fake-12", "fake-13", "fake-14", "fake-15", "fake-16", "fake-17", "fake-18", "fake-19", "fake-20", "fake-21", "fake-22", "fake-23", "fake-24", "fake-25", "fake-26", "fake-27", "fake-28", "fake-29", "fake-30", "fake-31", "fake-32", "fake-33", "fake-34", "fake-35", "fake-36", "fake-37", "fake-38", "fake-39", "fake-40", "fake-41", "fake-42", "fake-43", "fake-44", "fake-45", "fake-46", "fake-47", "fake-48", "fake-49", "fake-50", "fake-51", "fake-52", "fake-53", "fake-54", "fake-55", "fake-56", "fake-57", "fake-58", "fake-59", "fake-60", "fake-61", "fake-62", "fake-63", "fake-64", "fake-65", "fake-66", "fake-67", "fake-68", "fake-69", "fake-70", "fake-71", "fake-72", "fake-73", "fake-74", "fake-75", "fake-76", "fake-77", "fake-78", "fake-79", "fake-80", "fake-81", "fake-82", "fake-83", "fake-84", "fake-85", "fake-86"],
+    "shares": 4,
     "meta": "Public",
     "article": {
       "imageUrl": "https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?auto=format&fit=crop&w=1470&q=80",
@@ -62,8 +62,8 @@
     },
     "content": "Coffee and code - the perfect combination for a productive Monday morning! What's your go-to productivity boost?",
     "createdAt": "8 hours ago",
-    "stats": { "likes": 156, "comments": 32, "shares": 9 },
-    "liked": true,
+    "likedBy": ["usr-001", "u1", "u2", "u4", "fake-1", "fake-2", "fake-3", "fake-4", "fake-5", "fake-6", "fake-7", "fake-8", "fake-9", "fake-10", "fake-11", "fake-12", "fake-13", "fake-14", "fake-15", "fake-16", "fake-17", "fake-18", "fake-19", "fake-20", "fake-21", "fake-22", "fake-23", "fake-24", "fake-25", "fake-26", "fake-27", "fake-28", "fake-29", "fake-30", "fake-31", "fake-32", "fake-33", "fake-34", "fake-35", "fake-36", "fake-37", "fake-38", "fake-39", "fake-40", "fake-41", "fake-42", "fake-43", "fake-44", "fake-45", "fake-46", "fake-47", "fake-48", "fake-49", "fake-50", "fake-51", "fake-52", "fake-53", "fake-54", "fake-55", "fake-56", "fake-57", "fake-58", "fake-59", "fake-60", "fake-61", "fake-62", "fake-63", "fake-64", "fake-65", "fake-66", "fake-67", "fake-68", "fake-69", "fake-70", "fake-71", "fake-72", "fake-73", "fake-74", "fake-75", "fake-76", "fake-77", "fake-78", "fake-79", "fake-80", "fake-81", "fake-82", "fake-83", "fake-84", "fake-85", "fake-86", "fake-87", "fake-88", "fake-89", "fake-90", "fake-91", "fake-92", "fake-93", "fake-94", "fake-95", "fake-96", "fake-97", "fake-98", "fake-99", "fake-100", "fake-101", "fake-102", "fake-103", "fake-104", "fake-105", "fake-106", "fake-107", "fake-108", "fake-109", "fake-110", "fake-111", "fake-112", "fake-113", "fake-114", "fake-115", "fake-116", "fake-117", "fake-118", "fake-119", "fake-120", "fake-121", "fake-122", "fake-123", "fake-124", "fake-125", "fake-126", "fake-127", "fake-128", "fake-129", "fake-130", "fake-131", "fake-132", "fake-133", "fake-134", "fake-135", "fake-136", "fake-137", "fake-138", "fake-139", "fake-140", "fake-141", "fake-142", "fake-143", "fake-144", "fake-145", "fake-146", "fake-147", "fake-148", "fake-149", "fake-150", "fake-151", "fake-152"],
+    "shares": 9,
     "meta": "Sponsored",
     "quote": "Productivity is never an accident. It is always the result of a commitment to excellence, intelligent planning, and focused effort.",
     "comments": [
@@ -85,8 +85,8 @@
     },
     "content": "Excited to announce that I'll be speaking at Tech Summit 2025! Can't wait to share insights on AI and machine learning. See you there!",
     "createdAt": "12 hours ago",
-    "stats": { "likes": 203, "comments": 45, "shares": 21 },
-    "liked": false,
+    "likedBy": ["u1", "u2", "u3", "fake-1", "fake-2", "fake-3", "fake-4", "fake-5", "fake-6", "fake-7", "fake-8", "fake-9", "fake-10", "fake-11", "fake-12", "fake-13", "fake-14", "fake-15", "fake-16", "fake-17", "fake-18", "fake-19", "fake-20", "fake-21", "fake-22", "fake-23", "fake-24", "fake-25", "fake-26", "fake-27", "fake-28", "fake-29", "fake-30", "fake-31", "fake-32", "fake-33", "fake-34", "fake-35", "fake-36", "fake-37", "fake-38", "fake-39", "fake-40", "fake-41", "fake-42", "fake-43", "fake-44", "fake-45", "fake-46", "fake-47", "fake-48", "fake-49", "fake-50", "fake-51", "fake-52", "fake-53", "fake-54", "fake-55", "fake-56", "fake-57", "fake-58", "fake-59", "fake-60", "fake-61", "fake-62", "fake-63", "fake-64", "fake-65", "fake-66", "fake-67", "fake-68", "fake-69", "fake-70", "fake-71", "fake-72", "fake-73", "fake-74", "fake-75", "fake-76", "fake-77", "fake-78", "fake-79", "fake-80", "fake-81", "fake-82", "fake-83", "fake-84", "fake-85", "fake-86", "fake-87", "fake-88", "fake-89", "fake-90", "fake-91", "fake-92", "fake-93", "fake-94", "fake-95", "fake-96", "fake-97", "fake-98", "fake-99", "fake-100", "fake-101", "fake-102", "fake-103", "fake-104", "fake-105", "fake-106", "fake-107", "fake-108", "fake-109", "fake-110", "fake-111", "fake-112", "fake-113", "fake-114", "fake-115", "fake-116", "fake-117", "fake-118", "fake-119", "fake-120", "fake-121", "fake-122", "fake-123", "fake-124", "fake-125", "fake-126", "fake-127", "fake-128", "fake-129", "fake-130", "fake-131", "fake-132", "fake-133", "fake-134", "fake-135", "fake-136", "fake-137", "fake-138", "fake-139", "fake-140", "fake-141", "fake-142", "fake-143", "fake-144", "fake-145", "fake-146", "fake-147", "fake-148", "fake-149", "fake-150", "fake-151", "fake-152", "fake-153", "fake-154", "fake-155", "fake-156", "fake-157", "fake-158", "fake-159", "fake-160", "fake-161", "fake-162", "fake-163", "fake-164", "fake-165", "fake-166", "fake-167", "fake-168", "fake-169", "fake-170", "fake-171", "fake-172", "fake-173", "fake-174", "fake-175", "fake-176", "fake-177", "fake-178", "fake-179", "fake-180", "fake-181", "fake-182", "fake-183", "fake-184", "fake-185", "fake-186", "fake-187", "fake-188", "fake-189", "fake-190", "fake-191", "fake-192", "fake-193", "fake-194", "fake-195", "fake-196", "fake-197", "fake-198", "fake-199", "fake-200"],
+    "shares": 21,
     "meta": "Tech Summit 2025",
     "event": {
       "imageUrl": "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1470&q=80",
@@ -105,8 +105,8 @@
     },
     "content": "Weekend vibes at the beach. Nothing beats the sound of waves and a good book.",
     "createdAt": "1 day ago",
-    "stats": { "likes": 78, "comments": 6, "shares": 2 },
-    "liked": false,
+    "likedBy": ["u1", "u2", "u4", "fake-1", "fake-2", "fake-3", "fake-4", "fake-5", "fake-6", "fake-7", "fake-8", "fake-9", "fake-10", "fake-11", "fake-12", "fake-13", "fake-14", "fake-15", "fake-16", "fake-17", "fake-18", "fake-19", "fake-20", "fake-21", "fake-22", "fake-23", "fake-24", "fake-25", "fake-26", "fake-27", "fake-28", "fake-29", "fake-30", "fake-31", "fake-32", "fake-33", "fake-34", "fake-35", "fake-36", "fake-37", "fake-38", "fake-39", "fake-40", "fake-41", "fake-42", "fake-43", "fake-44", "fake-45", "fake-46", "fake-47", "fake-48", "fake-49", "fake-50", "fake-51", "fake-52", "fake-53", "fake-54", "fake-55", "fake-56", "fake-57", "fake-58", "fake-59", "fake-60", "fake-61", "fake-62", "fake-63", "fake-64", "fake-65", "fake-66", "fake-67", "fake-68", "fake-69", "fake-70", "fake-71", "fake-72", "fake-73", "fake-74", "fake-75"],
+    "shares": 2,
     "image": {
       "imageUrl": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1470&q=80",
       "alt": "Beach with turquoise water and white sand"

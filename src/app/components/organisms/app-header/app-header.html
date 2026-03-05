@@ -53,8 +53,10 @@
       </button>
 
       <!-- User profile — tablet+ -->
-      @if (isDesktop()) {
-        <app-user-profile />
+      @defer (on immediate) {
+        @if (isDesktop()) {
+          <app-user-profile />
+        }
       }
 
       <!-- Hamburger — mobile only -->

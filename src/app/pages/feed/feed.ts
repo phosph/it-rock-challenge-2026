@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { AppHeaderComponent } from '@src/app/components/organisms/app-header/app-header';
 import { PostCardComponent } from '@src/app/components/organisms/post-card/post-card';
@@ -19,11 +20,13 @@ import { FeedStore } from '@src/app/store/feed.store';
         <!-- TODO: profile card, nav menu, trending -->
       </div>
 
-       @for (post of feedStore.posts(); track post.id) {
-          <app-post-card [post]="post" (comment)="onComment(post.id)" />
-       } @empty {
-          <p class="text-neutral-500 text-sm">No posts yet.</p>
-       }
+      @defer (on immediate) {
+        @for (post of feedStore.posts(); track post.id) {
+            <app-post-card [post]="post" (like)="onLike(post.id)" (comment)="onComment(post.id)" />
+        } @empty {
+            <p class="text-neutral-500 text-sm">No posts yet.</p>
+        }
+      }
 
       <div sidebar-right>
         <!-- TODO: search, who to follow -->
@@ -40,9 +43,23 @@ import { FeedStore } from '@src/app/store/feed.store';
     <router-outlet />
   `,
 })
-export default class FeedPage {
+export default class FeedPage implements OnInit {
   private readonly router = inject(Router);
+  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
   readonly feedStore = inject(FeedStore);
+
+  ngOnInit(): void {
+    // NOTA: en circustancias normales esto no debería cargarse solo en browser
+    // pero no tenemos server ni DB, y los posts están en el cliente en el localstorage
+    // así que estoy forzado a cargarlo solamente en el browser
+    if (this.isBrowser) {
+      this.feedStore.loadAll();
+    }
+  }
+
+  onLike(postId: string): void {
+    this.feedStore.toggleLike(postId);
+  }
 
   onComment(postId: string): void {
     this.router.navigate(['/feed', postId]);
