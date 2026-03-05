@@ -6,16 +6,20 @@ A basic social network built with **Angular 21**, **Tailwind CSS 4**, and **@ngr
 
 ## Features
 
-- **OAuth login** — simulated Google OAuth flow (fake consent screen + callback)
+- **OAuth login** — simulated Google & Twitter OAuth flow (fake consent screen + callback)
 - **Email/password login** — with reactive form validation
-- **Feed** — scrollable list of posts with like toggle
-- **Post creation** — text, images (base64), article links, events, and quotes
-- **Comments** — threaded on each post via detail view
-- **Likes** — tracked per-user with `PostEntity` using `Set<string>`
+- **Feed** — scrollable list of posts with like, share, and bookmark toggles
+- **Post creation** — text and image posts via a dialog form
+- **Post detail** — single post view with comments section
+- **Comments** — add and view comments on each post
+- **Bookmarks** — save/unsave posts, filter feed by saved posts
+- **Share** — Web Share API or copy-to-clipboard modal fallback
+- **User profile** — view account info and logout
 - **State management** — `@ngrx/signals` (auth store + feed store)
 - **Responsive design** — mobile-first with Tailwind CSS 4
 - **Atomic Design** — atoms, molecules, organisms, templates, pages
 - **Accessibility** — WCAG AA, ARIA attributes, focus management
+- **SSR + Prerender** — Angular SSR with client-only data loading
 
 ## Tech Stack
 
@@ -24,6 +28,7 @@ A basic social network built with **Angular 21**, **Tailwind CSS 4**, and **@ngr
 | Angular           | 21.2    |
 | Tailwind CSS      | 4       |
 | @ngrx/signals     | 19      |
+| Storybook         | 10      |
 | Node.js           | 24+     |
 | pnpm              | 10      |
 
@@ -77,13 +82,13 @@ Since there is no real backend, all routes use **Prerender** or **Client** rende
 
 | Route                     | Render Mode | Notes                                       |
 |---------------------------|-------------|---------------------------------------------|
-| `/auth`                   | Prerender   | Login/signup shell                          |
+| `/auth`                   | Prerender   | Login shell                                 |
 | `/auth/oauth/:provider`  | Client      | Dynamic OAuth flow, fully client-side       |
 | `/auth/callback`         | Prerender   | OAuth callback handler                      |
 | `/feed`                   | Prerender   | Feed shell; posts load on client via defer  |
-| `/feed/publish`          | Prerender   | Post creation form                          |
-| `/feed/:postId`          | Prerender   | Detail shell; post data loads on client     |
-| `/profile`               | Prerender   | User profile (stub)                         |
+| `/feed/publish`          | Prerender   | Post creation dialog                        |
+| `/feed/:postId`          | Prerender   | Post detail dialog; data loads on client    |
+| `/profile`               | Prerender   | User profile page                           |
 
 Data-dependent content (posts, comments, auth state) renders exclusively on the browser using `isPlatformBrowser` guards and `@defer (on immediate)`.
 
@@ -92,17 +97,20 @@ Data-dependent content (posts, comments, auth state) renders exclusively on the 
 ```
 src/app/
 ├── components/
-│   ├── atoms/          # Avatar, FormField, ImagePreview, PostStats, ...
+│   ├── atoms/          # Avatar, FormField, ImagePreview, PostStats, QuoteBlock, ...
 │   ├── molecules/      # CommentInput, CommentItem, PostHeader, UserProfile
 │   ├── organisms/      # AppHeader, PostCard
-│   └── templates/      # FeedLayout
-├── guards/             # AuthGuard, GuestGuard
-├── interfaces/         # TypeScript interfaces and error classes
-├── pages/              # Auth, Feed, PostDetail, Publish, Profile, OAuth
+│   └── templates/      # DialogLayout, FeedLayout
+├── errors/             # AuthError, FeedError (typed error classes)
+├── guards/             # authGuard, guestGuard
+├── interfaces/         # TypeScript interfaces (User, Post, Comment, services)
+├── pages/              # Auth, Feed, PostDetail, Publish, Profile, OAuthConsent, OAuthCallback
 ├── pipes/              # TimeAgoPipe
 ├── services/           # Mock implementations (auth, feed)
-└── store/              # @ngrx/signals stores (auth, feed)
+└── store/              # @ngrx/signals stores (AuthStore, FeedStore)
 ```
+
+Path aliases are configured in `tsconfig.json`: `@components/*`, `@errors/*`, `@guards/*`, `@interfaces/*`, `@pages/*`, `@pipes/*`, `@services/*`, `@store/*`.
 
 ## Storybook
 
@@ -110,7 +118,12 @@ src/app/
 pnpm storybook
 ```
 
-Opens at [http://localhost:6006](http://localhost:6006). Includes stories for the Login page and Post Card component.
+Opens at [http://localhost:6006](http://localhost:6006). Includes stories for:
+
+- **Atoms:** Avatar, PostStats, QuoteBlock, ImagePreview, ArticlePreview, EventPreview
+- **Molecules:** PostHeader, CommentItem, CommentInput
+- **Organisms:** PostCard (6 variants)
+- **Pages:** Auth (login form)
 
 ## Testing
 
