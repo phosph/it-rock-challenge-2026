@@ -18,7 +18,7 @@ export const guestGuard: CanActivateFn = async () => {
   }
 
   if (authStore.token()) {
-    const user = await authStore.getCurrenUser();
+    const user = await authStore.getCurrentUser();
     if (user) return router.createUrlTree(['/feed']);
   }
 

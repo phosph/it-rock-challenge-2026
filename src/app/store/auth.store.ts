@@ -73,7 +73,7 @@ export const AuthStore = signalStore(
       }
     },
 
-    async getCurrenUser(): Promise<User | null> {
+    async getCurrentUser(): Promise<User | null> {
       try {
         const token = store.token()
         if (!token) {
