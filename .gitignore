@@ -47,3 +47,7 @@ Thumbs.db
 /tmp
 /mock-templates
 *.local.*
+
+*storybook.log
+storybook-static
+documentation.json
