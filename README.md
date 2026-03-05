@@ -38,6 +38,17 @@ A basic social network built with **Angular 21**, **Tailwind CSS 4**, and **@ngr
 pnpm install
 ```
 
+## Demo Credentials
+
+There is no signup — use one of the pre-seeded accounts:
+
+| Email                    | Password       |
+|--------------------------|----------------|
+| `galangal@example.com`   | `password123`  |
+| `sarah@example.com`      | `password123`  |
+
+You can also log in via the **Google** or **Twitter** OAuth buttons (simulated flow, no real provider).
+
 ## Development
 
 ```bash
