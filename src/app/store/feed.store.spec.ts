@@ -1,10 +1,10 @@
 import { signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import type { Comment } from '@src/app/interfaces/comment.interface';
-import type { FeedService } from '@src/app/interfaces/feed-service.interface';
-import type { Post } from '@src/app/interfaces/post.interface';
-import type { ShareRequest } from '@src/app/interfaces/share-request.interface';
-import { FEED_SERVICE } from '@src/app/services/feed';
+import type { Comment } from '@interfaces/comment.interface';
+import type { FeedService } from '@interfaces/feed-service.interface';
+import type { Post } from '@interfaces/post.interface';
+import type { ShareRequest } from '@interfaces/share-request.interface';
+import { FEED_SERVICE } from '@services/feed';
 import { FeedStore, SHARE_REQUEST } from './feed.store';
 
 const MOCK_POST: Post = {

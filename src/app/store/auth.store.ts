@@ -1,10 +1,10 @@
 import { computed, inject, InjectionToken, PLATFORM_ID, Signal } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals';
-import type { User } from '@src/app/interfaces/user.interface';
-import type { LoginData, OAuthExchangeData } from '@src/app/interfaces/auth-service.interface';
-import { AUTH_SERVICE } from '../services/auth';
-import { AuthError, AuthErrorCode } from '../errors/auth-error';
+import type { User } from '@interfaces/user.interface';
+import type { LoginData, OAuthExchangeData } from '@interfaces/auth-service.interface';
+import { AUTH_SERVICE } from '@services/auth';
+import { AuthError, AuthErrorCode } from '@errors/auth-error';
 
 const TOKEN_KEY = 'auth_token';
 

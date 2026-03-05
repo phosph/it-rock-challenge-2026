@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { PostArticle } from '@src/app/interfaces/post.interface';
+import { PostArticle } from '@interfaces/post.interface';
 
 @Component({
   selector: 'app-article-preview',

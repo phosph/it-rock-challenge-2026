@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import type { AuthService, LoginData, OAuthExchangeData, OAuthProvider } from '../../interfaces/auth-service.interface';
-import type { User } from '../../interfaces/user.interface';
-import { AuthError, AuthErrorCode } from '../../errors/auth-error';
+import type { AuthService, LoginData, OAuthExchangeData, OAuthProvider } from '@interfaces/auth-service.interface';
+import type { User } from '@interfaces/user.interface';
+import { AuthError, AuthErrorCode } from '@errors/auth-error';
 import mockUsers from './users.mock.json';
 
 /** @internal Extended user with password for mock authentication. */

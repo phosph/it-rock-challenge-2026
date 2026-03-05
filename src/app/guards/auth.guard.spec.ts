@@ -1,8 +1,8 @@
 import { PLATFORM_ID } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { Router, UrlTree } from '@angular/router';
-import { AuthStore } from '@src/app/store/auth.store';
-import { AUTH_SERVICE } from '@src/app/services/auth';
+import { AuthStore } from '@store/auth.store';
+import { AUTH_SERVICE } from '@services/auth';
 import { authGuard } from './auth.guard';
 
 describe('authGuard', () => {

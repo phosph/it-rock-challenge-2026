@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import type { Comment } from '@src/app/interfaces/comment.interface';
-import { AvatarComponent } from '@src/app/components/atoms/avatar/avatar';
-import { TimeAgoPipe } from '@src/app/pipes/time-ago.pipe';
+import type { Comment } from '@interfaces/comment.interface';
+import { AvatarComponent } from '@components/atoms/avatar/avatar';
+import { TimeAgoPipe } from '@pipes/time-ago.pipe';
 
 @Component({
   selector: 'app-comment-item',

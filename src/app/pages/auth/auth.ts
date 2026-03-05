@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { FormFieldComponent } from '@src/app/components/atoms/form-field/form-field';
-import { ProviderIconComponent } from '@src/app/components/atoms/provider-icon/provider-icon';
-import { AuthStore } from '@src/app/store/auth.store';
+import { FormFieldComponent } from '@components/atoms/form-field/form-field';
+import { ProviderIconComponent } from '@components/atoms/provider-icon/provider-icon';
+import { AuthStore } from '@store/auth.store';
 
 @Component({
   selector: 'app-auth',

@@ -1,9 +1,9 @@
 import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { AvatarComponent } from '@src/app/components/atoms/avatar/avatar';
-import { AppHeaderComponent } from '@src/app/components/organisms/app-header/app-header';
-import { AuthStore } from '@src/app/store/auth.store';
+import { AvatarComponent } from '@components/atoms/avatar/avatar';
+import { AppHeaderComponent } from '@components/organisms/app-header/app-header';
+import { AuthStore } from '@store/auth.store';
 
 @Component({
   selector: 'app-profile',

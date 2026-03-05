@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { PostStats } from '@src/app/interfaces/post.interface';
+import { PostStats } from '@interfaces/post.interface';
 
 @Component({
   selector: 'app-post-stats',

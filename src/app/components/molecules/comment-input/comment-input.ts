@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AvatarComponent } from '@src/app/components/atoms/avatar/avatar';
+import { AvatarComponent } from '@components/atoms/avatar/avatar';
 
 @Component({
   selector: 'app-comment-input',

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { PostImage } from '@src/app/interfaces/post.interface';
+import { PostImage } from '@interfaces/post.interface';
 
 @Component({
   selector: 'app-image-preview',

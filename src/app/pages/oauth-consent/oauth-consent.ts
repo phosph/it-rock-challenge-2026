@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { type OAuthBrand, ProviderIconComponent } from '@src/app/components/atoms/provider-icon/provider-icon';
+import { type OAuthBrand, ProviderIconComponent } from '@components/atoms/provider-icon/provider-icon';
 
 type Provider = 'google' | 'twitter';
 

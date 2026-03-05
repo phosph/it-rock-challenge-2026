@@ -1,11 +1,11 @@
 import { isPlatformBrowser } from '@angular/common';
 import { inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { AUTH_TOKEN } from '@src/app/store/auth.store';
-import type { Comment, CommentInput } from '../../../interfaces/comment.interface';
-import { FeedError, FeedErrorCode } from '../../../errors/feed-error';
-import type { FeedFilter, FeedService } from '../../../interfaces/feed-service.interface';
-import type { Post, PostAuthor, PostInput } from '../../../interfaces/post.interface';
-import { AUTH_SERVICE } from '../../auth';
+import { AUTH_TOKEN } from '@store/auth.store';
+import type { Comment, CommentInput } from '@interfaces/comment.interface';
+import { FeedError, FeedErrorCode } from '@errors/feed-error';
+import type { FeedFilter, FeedService } from '@interfaces/feed-service.interface';
+import type { Post, PostAuthor, PostInput } from '@interfaces/post.interface';
+import { AUTH_SERVICE } from '@services/auth';
 import mockPosts from '../feeds.mock.json';
 import { PostEntity, type StoredPost } from './post-entity';
 

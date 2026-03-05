@@ -2,10 +2,10 @@ import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
-import { AppHeaderComponent } from '@src/app/components/organisms/app-header/app-header';
-import { PostCardComponent } from '@src/app/components/organisms/post-card/post-card';
-import { FeedLayoutComponent } from '@src/app/components/templates/feed-layout/feed-layout';
-import { FeedStore } from '@src/app/store/feed.store';
+import { AppHeaderComponent } from '@components/organisms/app-header/app-header';
+import { PostCardComponent } from '@components/organisms/post-card/post-card';
+import { FeedLayoutComponent } from '@components/templates/feed-layout/feed-layout';
+import { FeedStore } from '@store/feed.store';
 
 @Component({
   selector: 'app-feed',

@@ -2,11 +2,11 @@ import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@a
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AuthStore } from '@src/app/store/auth.store';
-import { FeedStore } from '@src/app/store/feed.store';
-import type { PostInput } from '@src/app/interfaces/post.interface';
-import { AvatarComponent } from '@src/app/components/atoms/avatar/avatar';
-import { DialogLayoutComponent } from '@src/app/components/templates/dialog-layout/dialog-layout';
+import { AuthStore } from '@store/auth.store';
+import { FeedStore } from '@store/feed.store';
+import type { PostInput } from '@interfaces/post.interface';
+import { AvatarComponent } from '@components/atoms/avatar/avatar';
+import { DialogLayoutComponent } from '@components/templates/dialog-layout/dialog-layout';
 
 @Component({
   selector: 'app-publish',

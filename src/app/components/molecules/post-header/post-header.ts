@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
-import { PostAuthor } from '@src/app/interfaces/post.interface';
-import { AvatarComponent } from '@src/app/components/atoms/avatar/avatar';
-import { TimeAgoPipe } from '@src/app/pipes/time-ago.pipe';
+import { PostAuthor } from '@interfaces/post.interface';
+import { AvatarComponent } from '@components/atoms/avatar/avatar';
+import { TimeAgoPipe } from '@pipes/time-ago.pipe';
 
 @Component({
   selector: 'app-post-header',

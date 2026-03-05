@@ -1,5 +1,5 @@
-import type { Comment } from '../../../interfaces/comment.interface';
-import type { Post, PostArticle, PostAuthor, PostEvent, PostImage, PostInput, PostType } from '../../../interfaces/post.interface';
+import type { Comment } from '@interfaces/comment.interface';
+import type { Post, PostArticle, PostAuthor, PostEvent, PostImage, PostInput, PostType } from '@interfaces/post.interface';
 
 /** Shape of post data as stored in localStorage / mock JSON */
 export interface StoredPost {

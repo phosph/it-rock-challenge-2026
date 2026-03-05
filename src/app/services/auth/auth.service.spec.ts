@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
-import type { AuthService } from '@src/app/interfaces/auth-service.interface';
-import { AuthError, AuthErrorCode } from '@src/app/errors/auth-error';
+import type { AuthService } from '@interfaces/auth-service.interface';
+import { AuthError, AuthErrorCode } from '@errors/auth-error';
 import { AUTH_SERVICE, provideMockAuthService } from './index';
 
 describe('MockAuthServiceImpl', () => {

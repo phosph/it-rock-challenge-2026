@@ -1,5 +1,5 @@
-import type { Comment } from '@src/app/interfaces/comment.interface';
-import type { PostAuthor, PostInput } from '@src/app/interfaces/post.interface';
+import type { Comment } from '@interfaces/comment.interface';
+import type { PostAuthor, PostInput } from '@interfaces/post.interface';
 import { PostEntity, type StoredPost } from './post-entity';
 
 const AUTHOR: PostAuthor = { id: 'usr-001', name: 'Galangal', avatarUrl: 'avatar.jpg' };

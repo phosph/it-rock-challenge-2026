@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { ShareModalComponent } from './components/atoms/share-modal/share-modal';
+import { ShareModalComponent } from '@components/atoms/share-modal/share-modal';
 
 @Component({
   selector: 'app-root',

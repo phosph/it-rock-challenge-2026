@@ -1,5 +1,5 @@
 import { InjectionToken, Provider } from "@angular/core";
-import type { FeedService } from "../../interfaces/feed-service.interface";
+import type { FeedService } from "@interfaces/feed-service.interface";
 import { MockFeedServiceImpl } from "./mock-service/feed.service";
 
 /** Injection token for the {@link FeedService} abstraction. */

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { applicationConfig, moduleMetadata } from '@storybook/angular';
 import { provideRouter } from '@angular/router';
-import { provideMockAuthService } from '@src/app/services/auth';
+import { provideMockAuthService } from '@services/auth';
 import AuthPage from './auth';
 
 const meta: Meta<AuthPage> = {

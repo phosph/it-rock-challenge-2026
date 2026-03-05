@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { AuthStore } from '@src/app/store/auth.store';
-import { AvatarComponent } from '@src/app/components/atoms/avatar/avatar';
+import { AuthStore } from '@store/auth.store';
+import { AvatarComponent } from '@components/atoms/avatar/avatar';
 
 @Component({
   selector: 'app-user-profile',

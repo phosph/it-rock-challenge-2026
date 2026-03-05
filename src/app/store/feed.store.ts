@@ -1,11 +1,11 @@
 import { inject, InjectionToken, PLATFORM_ID, signal, WritableSignal } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
-import type { CommentInput } from '@src/app/interfaces/comment.interface';
-import type { FeedFilter } from '@src/app/interfaces/feed-service.interface';
-import type { Post, PostInput } from '@src/app/interfaces/post.interface';
-import type { ShareRequest } from '@src/app/interfaces/share-request.interface';
-import { FEED_SERVICE } from '../services/feed';
+import type { CommentInput } from '@interfaces/comment.interface';
+import type { FeedFilter } from '@interfaces/feed-service.interface';
+import type { Post, PostInput } from '@interfaces/post.interface';
+import type { ShareRequest } from '@interfaces/share-request.interface';
+import { FEED_SERVICE } from '@services/feed';
 
 /**
  * Injection token holding a writable signal for the current share request.

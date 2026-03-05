@@ -5,7 +5,14 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@src/*": ["src/*"]
+      "@components/*": ["src/app/components/*"],
+      "@errors/*": ["src/app/errors/*"],
+      "@guards/*": ["src/app/guards/*"],
+      "@interfaces/*": ["src/app/interfaces/*"],
+      "@pages/*": ["src/app/pages/*"],
+      "@pipes/*": ["src/app/pipes/*"],
+      "@services/*": ["src/app/services/*"],
+      "@store/*": ["src/app/store/*"]
     },
     "strict": true,
     "noImplicitOverride": true,

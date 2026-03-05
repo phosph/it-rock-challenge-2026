@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthStore } from '@src/app/store/auth.store';
-import type { OAuthProvider } from '@src/app/interfaces/auth-service.interface';
+import { AuthStore } from '@store/auth.store';
+import type { OAuthProvider } from '@interfaces/auth-service.interface';
 
 @Component({
   selector: 'app-oauth-callback',

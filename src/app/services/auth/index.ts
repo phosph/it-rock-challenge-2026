@@ -1,5 +1,5 @@
 import { InjectionToken, Provider } from "@angular/core";
-import type { AuthService } from "../../interfaces/auth-service.interface";
+import type { AuthService } from "@interfaces/auth-service.interface";
 import { MockAuthServiceImpl } from "./auth.service";
 
 /** Injection token for the {@link AuthService} abstraction. */

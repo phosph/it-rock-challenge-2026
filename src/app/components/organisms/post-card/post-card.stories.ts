@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import type { Post } from '@src/app/interfaces/post.interface';
+import type { Post } from '@interfaces/post.interface';
 import { PostCardComponent } from './post-card';
 
 const basePost: Post = {

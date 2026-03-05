@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { SHARE_REQUEST } from '@src/app/store/feed.store';
+import { SHARE_REQUEST } from '@store/feed.store';
 
 @Component({
   selector: 'app-share-modal',

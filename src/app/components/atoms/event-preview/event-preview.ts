@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { PostEvent } from '@src/app/interfaces/post.interface';
+import { PostEvent } from '@interfaces/post.interface';
 
 @Component({
   selector: 'app-event-preview',

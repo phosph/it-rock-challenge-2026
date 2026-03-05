@@ -2,12 +2,12 @@ import { isPlatformBrowser, NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnDestroy, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CommentInputComponent } from '@src/app/components/molecules/comment-input/comment-input';
-import { CommentItemComponent } from '@src/app/components/molecules/comment-item/comment-item';
-import { PostCardComponent } from '@src/app/components/organisms/post-card/post-card';
-import { DialogLayoutComponent } from '@src/app/components/templates/dialog-layout/dialog-layout';
-import { AuthStore } from '@src/app/store/auth.store';
-import { FeedStore } from '@src/app/store/feed.store';
+import { CommentInputComponent } from '@components/molecules/comment-input/comment-input';
+import { CommentItemComponent } from '@components/molecules/comment-item/comment-item';
+import { PostCardComponent } from '@components/organisms/post-card/post-card';
+import { DialogLayoutComponent } from '@components/templates/dialog-layout/dialog-layout';
+import { AuthStore } from '@store/auth.store';
+import { FeedStore } from '@store/feed.store';
 import { from } from 'rxjs';
 
 @Component({

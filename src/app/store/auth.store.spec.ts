@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
-import type { AuthService } from '@src/app/interfaces/auth-service.interface';
-import { AuthError, AuthErrorCode } from '@src/app/errors/auth-error';
-import type { User } from '@src/app/interfaces/user.interface';
-import { AUTH_SERVICE } from '@src/app/services/auth';
+import type { AuthService } from '@interfaces/auth-service.interface';
+import { AuthError, AuthErrorCode } from '@errors/auth-error';
+import type { User } from '@interfaces/user.interface';
+import { AUTH_SERVICE } from '@services/auth';
 import { AuthStore } from './auth.store';
 
 const MOCK_USER: User = {
