@@ -1,12 +1,13 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { type OAuthBrand, ProviderIconComponent } from '@src/app/components/atoms/provider-icon/provider-icon';
 
 type Provider = 'google' | 'twitter';
 
 interface ProviderConfig {
   name: string;
   color: string;
-  iconName: string;
+  iconName: OAuthBrand;
   user: string;
   userEmail: string;
   scopes: string[];
@@ -16,7 +17,7 @@ const PROVIDERS: Record<Provider, ProviderConfig> = {
   google: {
     name: 'Google',
     color: '#4285F4',
-    iconName: 'google' as const,
+    iconName: 'google',
     user: 'Galangal',
     userEmail: 'galangal@example.com',
     scopes: ['View your basic profile info', 'View your email address'],
@@ -24,7 +25,7 @@ const PROVIDERS: Record<Provider, ProviderConfig> = {
   twitter: {
     name: 'Twitter',
     color: '#1DA1F2',
-    iconName: 'twitter' as const,
+    iconName: 'twitter',
     user: 'Sarah Mitchell',
     userEmail: 'sarah@example.com',
     scopes: ['Read your profile', 'Read your email address'],
@@ -38,6 +39,7 @@ function isProvider(value: string | null): value is Provider {
 @Component({
   selector: 'app-oauth-consent',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ProviderIconComponent],
   templateUrl: './oauth-consent.html',
   styleUrl: './oauth-consent.css',
 })
