@@ -1,5 +1,7 @@
 # IT Rock Challenge — Social Network
 
+> **Live demo:** [https://phosph.github.io/it-rock-challenge-2026/](https://phosph.github.io/it-rock-challenge-2026/)
+
 A basic social network built with **Angular 21**, **Tailwind CSS 4**, and **@ngrx/signals**. All data is mocked (no real backend) and persisted in **LocalStorage**.
 
 ## Features
@@ -96,6 +98,14 @@ src/app/
 ```bash
 pnpm test
 ```
+
+## Deployment
+
+Deployed automatically to **GitHub Pages** via GitHub Actions on push to `main`.
+
+- Workflow: `.github/workflows/deploy.yml`
+- Output: prerendered static files from `dist/it-rock-challenge/browser/`
+- SPA fallback: `404.html` redirects to `index.csr.html` for client-side routing
 
 ## License
 

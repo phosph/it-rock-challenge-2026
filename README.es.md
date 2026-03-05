@@ -1,5 +1,7 @@
 # IT Rock Challenge — Red Social
 
+> **Demo en vivo:** [https://phosph.github.io/it-rock-challenge-2026/](https://phosph.github.io/it-rock-challenge-2026/)
+
 Red social básica construida con **Angular 21**, **Tailwind CSS 4** y **@ngrx/signals**. Todos los datos están mockeados (sin backend real) y persistidos en **LocalStorage**.
 
 ## Funcionalidades
@@ -96,6 +98,14 @@ src/app/
 ```bash
 pnpm test
 ```
+
+## Despliegue
+
+Desplegado automáticamente en **GitHub Pages** vía GitHub Actions al hacer push a `main`.
+
+- Workflow: `.github/workflows/deploy.yml`
+- Output: archivos estáticos pre-renderizados desde `dist/it-rock-challenge/browser/`
+- Fallback SPA: `404.html` redirige a `index.csr.html` para routing del lado del cliente
 
 ## Licencia
 
