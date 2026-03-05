@@ -1,4 +1,4 @@
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnDestroy, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -7,12 +7,12 @@ import { CommentItemComponent } from '@src/app/components/molecules/comment-item
 import { PostCardComponent } from '@src/app/components/organisms/post-card/post-card';
 import { AuthStore } from '@src/app/store/auth.store';
 import { FeedStore } from '@src/app/store/feed.store';
-import { debounceTime, from } from 'rxjs';
+import { from } from 'rxjs';
 
 @Component({
   selector: 'app-post-detail',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [PostCardComponent, CommentInputComponent, CommentItemComponent],
+  imports: [NgTemplateOutlet, PostCardComponent, CommentInputComponent, CommentItemComponent],
   styleUrl: './post-detail.css',
   templateUrl: './post-detail.html',
 })
@@ -37,7 +37,6 @@ export default class PostDetailPage implements OnInit, OnDestroy {
     if (postId && this.isBrowser) {
       from(this.feedStore.loadPost(postId)).pipe(
         takeUntilDestroyed(this.destroyRef),
-        debounceTime(4000)
       ).subscribe({
         complete: () => this.loading.set(false),
         error: () => this.close()
