@@ -1,8 +1,14 @@
-import { inject } from '@angular/core';
+import { inject, InjectionToken, signal, WritableSignal } from '@angular/core';
 import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
 import type { CommentInput } from '@src/app/interfaces/comment.interface';
 import type { Post, PostInput } from '@src/app/interfaces/post.interface';
+import type { ShareRequest } from '@src/app/interfaces/share-request.interface';
 import { FEED_SERVICE } from '../services/feed';
+
+export const SHARE_REQUEST = new InjectionToken<WritableSignal<ShareRequest | null>>('SHARE_REQUEST', {
+  providedIn: 'root',
+  factory: () => signal<ShareRequest | null>(null),
+});
 
 interface FeedState {
   posts: Post[];
@@ -16,7 +22,7 @@ export const FeedStore = signalStore(
     selectedPost: null,
     loading: false,
   }),
-  withMethods((store, feedService = inject(FEED_SERVICE)) => ({
+  withMethods((store, feedService = inject(FEED_SERVICE), shareRequest = inject(SHARE_REQUEST)) => ({
     async loadAll() {
       patchState(store, { loading: true });
       const posts = await feedService.getAll();
@@ -72,6 +78,32 @@ export const FeedStore = signalStore(
 
         const selectedPost = state.selectedPost?.id === postId
           ? { ...state.selectedPost, liked: updatedPost.liked, stats: { ...state.selectedPost.stats, likes: updatedPost.stats.likes } }
+          : state.selectedPost;
+
+        return { posts, selectedPost };
+      });
+    },
+
+    async sharePost(postId: string) {
+      const url = `${location.origin}/feed/${postId}`;
+
+      if (navigator.share) {
+        await navigator.share({ url });
+      } else {
+        shareRequest.set({ url });
+      }
+
+      const updatedPost = await feedService.sharePost(postId);
+
+      patchState(store, (state) => {
+        const posts = state.posts.map(p =>
+          p.id === postId
+            ? { ...p, stats: { ...p.stats, shares: updatedPost.stats.shares } }
+            : p
+        );
+
+        const selectedPost = state.selectedPost?.id === postId
+          ? { ...state.selectedPost, stats: { ...state.selectedPost.stats, shares: updatedPost.stats.shares } }
           : state.selectedPost;
 
         return { posts, selectedPost };

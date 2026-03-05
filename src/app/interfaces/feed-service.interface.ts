@@ -7,4 +7,5 @@ export interface FeedService {
   uploadPost(post: PostInput): Promise<Post>
   addComment(postId: Post['id'], comment: CommentInput): Promise<Comment>
   toggleLike(postId: Post['id']): Promise<Post>
+  sharePost(postId: Post['id']): Promise<Post>
 }

@@ -22,7 +22,7 @@ import { FeedStore } from '@src/app/store/feed.store';
 
       @defer (on immediate) {
         @for (post of feedStore.posts(); track post.id) {
-            <app-post-card [post]="post" (like)="onLike(post.id)" (comment)="onComment(post.id)" />
+            <app-post-card [post]="post" (like)="onLike(post.id)" (comment)="onComment(post.id)" (share)="onShare(post.id)" />
         } @empty {
             <p class="text-neutral-500 text-sm">No posts yet.</p>
         }
@@ -63,5 +63,9 @@ export default class FeedPage implements OnInit {
 
   onComment(postId: string): void {
     this.router.navigate(['/feed', postId]);
+  }
+
+  onShare(postId: string): void {
+    this.feedStore.sharePost(postId);
   }
 }

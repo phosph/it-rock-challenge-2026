@@ -94,6 +94,17 @@ export class MockFeedServiceImpl implements FeedService {
     return entity.toPost(user.id);
   }
 
+  async sharePost(postId: string): Promise<Post> {
+    const entity = this.#mockedDb.get(postId);
+    if (!entity) throw new FeedError(FeedErrorCode.POST_NOT_FOUND);
+
+    entity.shares++;
+    this.#persist();
+
+    const userId = await this.#resolveUserId();
+    return entity.toPost(userId);
+  }
+
   async #resolveUserId(): Promise<string> {
     const user = await this.#authService.getAuthenticatedUser(this.#authToken());
     return user.id;
