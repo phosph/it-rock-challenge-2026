@@ -11,7 +11,7 @@ const basePost: Post = {
     name: 'Sarah Mitchell',
     avatarUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
   },
-  createdAt: '2 hours ago',
+  createdAt: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
   meta: 'Yosemite',
   image: {
     imageUrl: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1470&q=80',

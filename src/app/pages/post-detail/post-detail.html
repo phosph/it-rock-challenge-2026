@@ -21,6 +21,7 @@
 
   <!-- Scrollable body -->
   <div class="flex-1 overflow-y-auto">
+    @defer (on immediate) {
     @if (post(); as p) {
       <!-- Post content -->
       <app-post-card [post]="p" [showCommentAction]="false" flat (like)="onLike()" (share)="onShare()" (tag)="onTag()" />
@@ -49,6 +50,7 @@
         <span class="material-symbols-outlined text-4xl text-neutral-300 animate-spin" aria-hidden="true">progress_activity</span>
         <span class="sr-only">Loading post...</span>
       </div>
+    }
     }
   </div>
 </div>

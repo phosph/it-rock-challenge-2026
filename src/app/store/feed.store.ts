@@ -1,4 +1,5 @@
-import { inject, InjectionToken, signal, WritableSignal } from '@angular/core';
+import { inject, InjectionToken, PLATFORM_ID, signal, WritableSignal } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
 import type { CommentInput } from '@src/app/interfaces/comment.interface';
 import type { FeedFilter } from '@src/app/interfaces/feed-service.interface';
@@ -23,7 +24,7 @@ export const FeedStore = signalStore(
     selectedPost: null,
     loading: false,
   }),
-  withMethods((store, feedService = inject(FEED_SERVICE), shareRequest = inject(SHARE_REQUEST)) => ({
+  withMethods((store, feedService = inject(FEED_SERVICE), shareRequest = inject(SHARE_REQUEST), isBrowser = isPlatformBrowser(inject(PLATFORM_ID))) => ({
     async loadAll(filter?: FeedFilter) {
       patchState(store, { loading: true });
       const posts = await feedService.getAll(filter);
@@ -86,6 +87,10 @@ export const FeedStore = signalStore(
     },
 
     async sharePost(postId: string) {
+      if (!isBrowser) {
+        throw new Error('sharePost cannot be called during server-side rendering');
+      }
+
       const url = `${location.origin}/feed/${postId}`;
 
       if (navigator.share) {

@@ -93,6 +93,14 @@ src/app/
 └── store/              # @ngrx/signals stores (auth, feed)
 ```
 
+## Storybook
+
+```bash
+pnpm storybook
+```
+
+Opens at [http://localhost:6006](http://localhost:6006). Includes stories for the Login page and Post Card component.
+
 ## Testing
 
 ```bash

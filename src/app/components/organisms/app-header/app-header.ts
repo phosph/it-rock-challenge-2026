@@ -9,6 +9,7 @@ const SM_BREAKPOINT = '(min-width: 640px)';
   selector: 'app-header',
   templateUrl: './app-header.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { class: 'block' },
   imports: [RouterLink, UserProfileComponent],
 })
 export class AppHeaderComponent {

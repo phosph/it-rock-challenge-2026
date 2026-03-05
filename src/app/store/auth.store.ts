@@ -89,6 +89,7 @@ export const AuthStore = signalStore(
 
         if (error instanceof AuthError) {
           switch (error.code) {
+            case AuthErrorCode.TOKEN_EXPIRED:
             case AuthErrorCode.TOKEN_INVALID:
             case AuthErrorCode.USER_NOT_FOUND: {
               patchState(store, { user: null, token: '', loading: false });
