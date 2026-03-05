@@ -6,7 +6,7 @@ import { FeedError, FeedErrorCode } from '@errors/feed-error';
 import type { FeedFilter, FeedService } from '@interfaces/feed-service.interface';
 import type { Post, PostAuthor, PostInput } from '@interfaces/post.interface';
 import { AUTH_SERVICE } from '@services/auth';
-import mockPosts from '../feeds.mock.json';
+import mockPosts from './feeds.mock.json';
 import { PostEntity, type StoredPost } from './post-entity';
 
 const STORAGE_KEY = 'feed_posts';
