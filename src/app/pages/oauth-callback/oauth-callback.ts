@@ -10,8 +10,7 @@ import type { OAuthProvider } from '@src/app/interfaces/auth-service.interface';
   styleUrl: './oauth-callback.css',
   template: `
     <div class="flex flex-col items-center gap-4" role="status" aria-live="polite">
-      <div class="w-10 h-10 border-4 border-primary-200 border-t-primary-600 rounded-full animate-spin"
-        aria-hidden="true"></div>
+      <span class="material-symbols-outlined text-4xl text-neutral-300 animate-spin" aria-hidden="true">progress_activity</span>
       @if (error()) {
         <p class="text-sm text-red-600">{{ error() }}</p>
       } @else {
