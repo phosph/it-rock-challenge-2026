@@ -1,3 +1,5 @@
+import type { Comment } from './comment.interface';
+
 export type PostType = 'image' | 'article' | 'quote' | 'event';
 
 export interface PostAuthor {
@@ -48,4 +50,5 @@ export interface Post extends PostInput {
   createdAt: string;
   stats: PostStats;
   liked: boolean;
+  comments?: Comment[];
 }

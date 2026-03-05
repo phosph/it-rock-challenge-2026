@@ -1,5 +1,7 @@
 import { isPlatformBrowser } from '@angular/common';
 import { inject, Injectable, PLATFORM_ID } from '@angular/core';
+import type { Comment, CommentInput } from '../../interfaces/comment.interface';
+import { FeedError, FeedErrorCode } from '../../interfaces/feed-error';
 import type { FeedService } from '../../interfaces/feed-service.interface';
 import type { Post, PostInput } from '../../interfaces/post.interface';
 import { AUTH_SERVICE } from '../auth';
@@ -21,8 +23,10 @@ export class MockFeedServiceImpl implements FeedService {
 
   async getPost(postId: Post['id']): Promise<Post> {
     const post = this.#mockedDb.get(postId);
-    if (!post) throw new Error(`Post ${postId} not found`);
-    return structuredClone(post);
+    if (!post) throw new FeedError(FeedErrorCode.POST_NOT_FOUND);
+    const clone = structuredClone(post);
+    clone.comments ??= [];
+    return clone;
   }
 
   async uploadPost(postInput: PostInput, token: string): Promise<Post> {
@@ -50,9 +54,41 @@ export class MockFeedServiceImpl implements FeedService {
 
   async getAll(): Promise<Post[]> {
     return Iterator.from(this.#mockedDb.values())
-      .map(post => structuredClone(post))
+      .map(post => {
+        const clone = structuredClone(post);
+        delete clone.comments;
+        return clone;
+      })
       .toArray()
       .reverse();
+  }
+
+  async addComment(postId: Post['id'], commentInput: CommentInput, token: string): Promise<Comment> {
+    if (!commentInput.content.trim()) throw new FeedError(FeedErrorCode.EMPTY_COMMENT);
+
+    const post = this.#mockedDb.get(postId);
+    if (!post) throw new FeedError(FeedErrorCode.POST_NOT_FOUND);
+
+    const author = await this.#authService.getAuthenticatedUser(token)
+      .then((user): Post['author'] => ({
+        id: user.id,
+        name: user.displayName,
+        avatarUrl: user.avatar,
+      }));
+
+    const comment: Comment = {
+      id: crypto.randomUUID(),
+      author,
+      content: commentInput.content,
+      createdAt: new Date().toISOString(),
+    };
+
+    post.comments ??= [];
+    post.comments.unshift(comment);
+    post.stats.comments += 1;
+    this.#persist();
+
+    return structuredClone(comment);
   }
 
   #loadFromStorage(): Post[] | null {

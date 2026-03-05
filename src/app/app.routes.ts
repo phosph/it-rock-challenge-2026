@@ -13,6 +13,7 @@ export const routes: Routes = [
     canActivate: [authGuard],
     children: [
       { path: 'publish', loadComponent: () => import('./pages/publish/publish') },
+      { path: ':postId', loadComponent: () => import('./pages/post-detail/post-detail') },
     ],
   },
   { path: 'profile', loadComponent: () => import('./pages/profile/profile'), canActivate: [authGuard] },

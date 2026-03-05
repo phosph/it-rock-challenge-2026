@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { AppHeaderComponent } from '@src/app/components/organisms/app-header/app-header';
 import { PostCardComponent } from '@src/app/components/organisms/post-card/post-card';
 import { FeedLayoutComponent } from '@src/app/components/templates/feed-layout/feed-layout';
@@ -20,7 +20,7 @@ import { FeedStore } from '@src/app/store/feed.store';
       </div>
 
        @for (post of feedStore.posts(); track post.id) {
-          <app-post-card [post]="post"/>
+          <app-post-card [post]="post" (comment)="onComment(post.id)" />
        } @empty {
           <p class="text-neutral-500 text-sm">No posts yet.</p>
        }
@@ -41,5 +41,10 @@ import { FeedStore } from '@src/app/store/feed.store';
   `,
 })
 export default class FeedPage {
-  readonly feedStore = inject(FeedStore)
+  private readonly router = inject(Router);
+  readonly feedStore = inject(FeedStore);
+
+  onComment(postId: string): void {
+    this.router.navigate(['/feed', postId]);
+  }
 }
