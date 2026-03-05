@@ -17,40 +17,140 @@
                 aria-label="Post content"
                 rows="4"></textarea>
 
-      <!-- Image fields -->
-      @if (showImageFields()) {
-        <div class="space-y-3 p-4 rounded-xl bg-neutral-50 border border-neutral-200">
-          <div>
-            <label for="publish-image-url" class="block text-xs font-medium text-neutral-600 mb-1">Image URL</label>
-            <input id="publish-image-url"
-                   type="url"
-                   [formControl]="form.controls.imageUrl"
-                   class="form-input px-3 py-2 text-sm"
-                   placeholder="https://example.com/photo.jpg" />
-          </div>
-          <div>
-            <label for="publish-image-alt" class="block text-xs font-medium text-neutral-600 mb-1">Alt text</label>
-            <input id="publish-image-alt"
-                   type="text"
-                   [formControl]="form.controls.imageAlt"
-                   class="form-input px-3 py-2 text-sm"
-                   placeholder="Describe the image" />
-          </div>
-        </div>
-      }
+      <!-- Type-specific fields -->
+      @switch (activeType()) {
+        @case ('image') {
+          <fieldset class="space-y-3 p-4 rounded-xl bg-neutral-50 border border-neutral-200">
+            <legend class="text-xs font-semibold text-neutral-500 uppercase tracking-wide">Image</legend>
+            <div>
+              <label for="publish-image-url" class="block text-xs font-medium text-neutral-600 mb-1">Image URL</label>
+              <input id="publish-image-url"
+                     type="url"
+                     [formControl]="form.controls.imageUrl"
+                     class="form-input px-3 py-2 text-sm"
+                     placeholder="https://example.com/photo.jpg" />
+            </div>
+            <div>
+              <label for="publish-image-alt" class="block text-xs font-medium text-neutral-600 mb-1">Alt text</label>
+              <input id="publish-image-alt"
+                     type="text"
+                     [formControl]="form.controls.imageAlt"
+                     class="form-input px-3 py-2 text-sm"
+                     placeholder="Describe the image" />
+            </div>
+            <div>
+              <label for="publish-image-caption" class="block text-xs font-medium text-neutral-600 mb-1">Caption (optional)</label>
+              <input id="publish-image-caption"
+                     type="text"
+                     [formControl]="form.controls.imageCaption"
+                     class="form-input px-3 py-2 text-sm"
+                     placeholder="Add a caption…" />
+            </div>
+          </fieldset>
 
-      <!-- Image preview -->
-      @if (form.controls.imageUrl.value; as url) {
-        @if (url.trim()) {
-          <div class="relative rounded-xl overflow-hidden border border-neutral-200 shadow-sm">
-            <img [src]="url" [alt]="form.controls.imageAlt.value || 'Preview'" class="w-full max-h-60 object-cover" />
-            <button type="button"
-                    (click)="clearImage()"
-                    class="absolute top-2 right-2 w-7 h-7 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-black/80 transition-colors text-xs"
-                    aria-label="Remove image">
-              <span class="material-symbols-outlined text-sm" aria-hidden="true">close</span>
-            </button>
-          </div>
+          <!-- Image preview -->
+          @if (form.controls.imageUrl.value; as url) {
+            @if (url.trim()) {
+              <div class="relative rounded-xl overflow-hidden border border-neutral-200 shadow-sm">
+                <img [src]="url" [alt]="form.controls.imageAlt.value || 'Preview'" class="w-full max-h-60 object-cover" />
+                <button type="button"
+                        (click)="clearImage()"
+                        class="absolute top-2 right-2 w-7 h-7 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-black/80 transition-colors text-xs"
+                        aria-label="Remove image">
+                  <span class="material-symbols-outlined text-sm" aria-hidden="true">close</span>
+                </button>
+              </div>
+            }
+          }
+        }
+
+        @case ('article') {
+          <fieldset class="space-y-3 p-4 rounded-xl bg-neutral-50 border border-neutral-200">
+            <legend class="text-xs font-semibold text-neutral-500 uppercase tracking-wide">Article</legend>
+            <div>
+              <label for="publish-article-image" class="block text-xs font-medium text-neutral-600 mb-1">Cover image URL (optional)</label>
+              <input id="publish-article-image"
+                     type="url"
+                     [formControl]="form.controls.articleImageUrl"
+                     class="form-input px-3 py-2 text-sm"
+                     placeholder="https://example.com/cover.jpg" />
+            </div>
+            <div>
+              <label for="publish-article-title" class="block text-xs font-medium text-neutral-600 mb-1">Title</label>
+              <input id="publish-article-title"
+                     type="text"
+                     [formControl]="form.controls.articleTitle"
+                     class="form-input px-3 py-2 text-sm"
+                     placeholder="Article title" />
+            </div>
+            <div>
+              <label for="publish-article-desc" class="block text-xs font-medium text-neutral-600 mb-1">Description</label>
+              <textarea id="publish-article-desc"
+                        [formControl]="form.controls.articleDesc"
+                        class="form-input px-3 py-2 text-sm resize-none"
+                        placeholder="Brief description…"
+                        rows="2"></textarea>
+            </div>
+            <div>
+              <label for="publish-article-label" class="block text-xs font-medium text-neutral-600 mb-1">Label (optional)</label>
+              <input id="publish-article-label"
+                     type="text"
+                     [formControl]="form.controls.articleLabel"
+                     class="form-input px-3 py-2 text-sm"
+                     placeholder="e.g. Technology, Design" />
+            </div>
+          </fieldset>
+        }
+
+        @case ('quote') {
+          <fieldset class="space-y-3 p-4 rounded-xl bg-neutral-50 border border-neutral-200">
+            <legend class="text-xs font-semibold text-neutral-500 uppercase tracking-wide">Quote</legend>
+            <div>
+              <label for="publish-quote" class="block text-xs font-medium text-neutral-600 mb-1">Quote text</label>
+              <textarea id="publish-quote"
+                        [formControl]="form.controls.quote"
+                        class="form-input px-3 py-2 text-sm resize-none"
+                        placeholder="Enter the quote…"
+                        rows="3"></textarea>
+            </div>
+          </fieldset>
+        }
+
+        @case ('event') {
+          <fieldset class="space-y-3 p-4 rounded-xl bg-neutral-50 border border-neutral-200">
+            <legend class="text-xs font-semibold text-neutral-500 uppercase tracking-wide">Event</legend>
+            <div>
+              <label for="publish-event-image" class="block text-xs font-medium text-neutral-600 mb-1">Event image URL (optional)</label>
+              <input id="publish-event-image"
+                     type="url"
+                     [formControl]="form.controls.eventImageUrl"
+                     class="form-input px-3 py-2 text-sm"
+                     placeholder="https://example.com/event.jpg" />
+            </div>
+            <div>
+              <label for="publish-event-title" class="block text-xs font-medium text-neutral-600 mb-1">Title</label>
+              <input id="publish-event-title"
+                     type="text"
+                     [formControl]="form.controls.eventTitle"
+                     class="form-input px-3 py-2 text-sm"
+                     placeholder="Event name" />
+            </div>
+            <div>
+              <label for="publish-event-location" class="block text-xs font-medium text-neutral-600 mb-1">Location</label>
+              <input id="publish-event-location"
+                     type="text"
+                     [formControl]="form.controls.eventLocation"
+                     class="form-input px-3 py-2 text-sm"
+                     placeholder="Where is it?" />
+            </div>
+            <div>
+              <label for="publish-event-date" class="block text-xs font-medium text-neutral-600 mb-1">Date</label>
+              <input id="publish-event-date"
+                     type="datetime-local"
+                     [formControl]="form.controls.eventDate"
+                     class="form-input px-3 py-2 text-sm" />
+            </div>
+          </fieldset>
         }
       }
     </div>
@@ -60,11 +160,39 @@
       <div class="flex gap-1">
         <button type="button"
                 class="w-9 h-9 flex items-center justify-center rounded-lg text-primary-600 hover:bg-primary-50 transition-colors"
-                [class.bg-primary-50]="showImageFields()"
-                (click)="toggleImageFields()"
-                [attr.aria-pressed]="showImageFields()"
+                [class.bg-primary-50]="activeType() === 'image'"
+                (click)="toggleType('image')"
+                [attr.aria-pressed]="activeType() === 'image'"
+                title="Add image"
                 aria-label="Add image">
           <span class="material-symbols-outlined" aria-hidden="true">image</span>
+        </button>
+        <button type="button"
+                class="w-9 h-9 flex items-center justify-center rounded-lg text-primary-600 hover:bg-primary-50 transition-colors"
+                [class.bg-primary-50]="activeType() === 'article'"
+                (click)="toggleType('article')"
+                [attr.aria-pressed]="activeType() === 'article'"
+                title="Add article"
+                aria-label="Add article">
+          <span class="material-symbols-outlined" aria-hidden="true">link</span>
+        </button>
+        <button type="button"
+                class="w-9 h-9 flex items-center justify-center rounded-lg text-primary-600 hover:bg-primary-50 transition-colors"
+                [class.bg-primary-50]="activeType() === 'quote'"
+                (click)="toggleType('quote')"
+                [attr.aria-pressed]="activeType() === 'quote'"
+                title="Add quote"
+                aria-label="Add quote">
+          <span class="material-symbols-outlined" aria-hidden="true">format_quote</span>
+        </button>
+        <button type="button"
+                class="w-9 h-9 flex items-center justify-center rounded-lg text-primary-600 hover:bg-primary-50 transition-colors"
+                [class.bg-primary-50]="activeType() === 'event'"
+                (click)="toggleType('event')"
+                [attr.aria-pressed]="activeType() === 'event'"
+                title="Add event"
+                aria-label="Add event">
+          <span class="material-symbols-outlined" aria-hidden="true">event</span>
         </button>
       </div>
       <button type="submit"
