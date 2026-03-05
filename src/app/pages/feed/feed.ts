@@ -36,7 +36,7 @@ import { FeedStore } from '@store/feed.store';
 
     <!-- FAB: New Post -->
     <a routerLink="publish"
-       class="fixed bottom-8 right-8 z-40 w-14 h-14 bg-neutral-800 rounded-full flex items-center justify-center text-white shadow-lg shadow-neutral-800/30 hover:bg-black hover:scale-105 transition-all border-4 border-white"
+       class="fixed bottom-8 right-8 z-40 w-14 h-14 bg-neutral-800 rounded-full flex items-center justify-center text-white shadow-lg shadow-neutral-800/30 hover:bg-black hover:scale-105 transition-all"
        aria-label="Create new post">
       <span class="material-symbols-outlined text-3xl" aria-hidden="true">add</span>
     </a>
