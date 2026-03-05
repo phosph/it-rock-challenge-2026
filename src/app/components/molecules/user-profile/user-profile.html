@@ -1,8 +1,10 @@
 @if (authStore.user(); as u) {
-  <div class="text-right hidden md:block">
-    <p class="text-sm font-bold text-neutral-900 leading-none">{{ u.displayName }}</p>
-    <p class="text-xs text-neutral-500">@{{ u.username }}</p>
-  </div>
+  @if (!compact()) {
+    <div class="text-right hidden md:block">
+      <p class="text-sm font-bold text-neutral-900 leading-none">{{ u.displayName }}</p>
+      <p class="text-xs text-neutral-500">@{{ u.username }}</p>
+    </div>
+  }
 
   <!-- Avatar trigger -->
   <button
