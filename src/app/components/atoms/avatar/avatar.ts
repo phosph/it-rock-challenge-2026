@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 
 @Component({
   selector: 'app-avatar',
@@ -18,8 +18,8 @@ export class AvatarComponent {
   alt = input('');
   size = input<'sm' | 'md' | 'lg' | 'full'>('md');
 
-  protected sizeClass = () => {
+  protected readonly sizeClass = computed(() => {
     const sizes = { sm: 'w-8 h-8', md: 'w-12 h-12', lg: 'w-16 h-16', full: 'w-full h-full' };
     return sizes[this.size()];
-  };
+  });
 }
