@@ -10,7 +10,7 @@ import { SHARE_REQUEST } from '@src/app/store/feed.store';
       <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
            (click)="onBackdropClick($event)"
            (keydown.escape)="close()">
-        <div class="card w-full max-w-sm mx-4 p-5" role="dialog" aria-labelledby="share-title">
+        <div class="card w-full max-w-sm mx-4 p-5" role="dialog" aria-modal="true" aria-labelledby="share-title">
           <div class="flex items-center justify-between mb-4">
             <h2 id="share-title" class="text-lg font-bold text-neutral-900">Share</h2>
             <button type="button"
