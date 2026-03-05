@@ -69,6 +69,12 @@ export default class PostDetailPage implements OnInit, OnDestroy {
     this.feedStore.sharePost(postId);
   }
 
+  onTag(): void {
+    const postId = this.post()?.id;
+    if (!postId) return;
+    this.feedStore.toggleTag(postId);
+  }
+
   async onCommentSubmit(content: string): Promise<void> {
     const postId = this.post()?.id;
     if (!postId) return;

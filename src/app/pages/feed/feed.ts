@@ -1,6 +1,7 @@
 import { isPlatformBrowser } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
-import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { AppHeaderComponent } from '@src/app/components/organisms/app-header/app-header';
 import { PostCardComponent } from '@src/app/components/organisms/post-card/post-card';
 import { FeedLayoutComponent } from '@src/app/components/templates/feed-layout/feed-layout';
@@ -22,7 +23,7 @@ import { FeedStore } from '@src/app/store/feed.store';
 
       @defer (on immediate) {
         @for (post of feedStore.posts(); track post.id) {
-            <app-post-card [post]="post" (like)="onLike(post.id)" (comment)="onComment(post.id)" (share)="onShare(post.id)" />
+            <app-post-card [post]="post" (like)="onLike(post.id)" (comment)="onComment(post.id)" (share)="onShare(post.id)" (tag)="onTag(post.id)" />
         } @empty {
             <p class="text-neutral-500 text-sm">No posts yet.</p>
         }
@@ -44,17 +45,23 @@ import { FeedStore } from '@src/app/store/feed.store';
   `,
 })
 export default class FeedPage implements OnInit {
+  private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
+  private readonly destroyRef = inject(DestroyRef);
   private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
   readonly feedStore = inject(FeedStore);
 
+  private taggedFilter = false;
+
   ngOnInit(): void {
-    // NOTA: en circustancias normales esto no debería cargarse solo en browser
-    // pero no tenemos server ni DB, y los posts están en el cliente en el localstorage
-    // así que estoy forzado a cargarlo solamente en el browser
-    if (this.isBrowser) {
-      this.feedStore.loadAll();
-    }
+    if (!this.isBrowser) return;
+
+    this.route.queryParams.pipe(
+      takeUntilDestroyed(this.destroyRef),
+    ).subscribe(params => {
+      this.taggedFilter = params['tagged'] === 'true';
+      this.feedStore.loadAll(this.taggedFilter ? { tagged: true } : undefined);
+    });
   }
 
   onLike(postId: string): void {
@@ -67,5 +74,12 @@ export default class FeedPage implements OnInit {
 
   onShare(postId: string): void {
     this.feedStore.sharePost(postId);
+  }
+
+  async onTag(postId: string): Promise<void> {
+    await this.feedStore.toggleTag(postId);
+    if (this.taggedFilter) {
+      this.feedStore.loadAll({ tagged: true });
+    }
   }
 }

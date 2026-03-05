@@ -50,5 +50,6 @@ export interface Post extends PostInput {
   createdAt: string;
   stats: PostStats;
   liked: boolean;
+  tagged: boolean;
   comments?: Comment[];
 }

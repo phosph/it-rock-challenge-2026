@@ -1,6 +1,7 @@
 import { inject, InjectionToken, signal, WritableSignal } from '@angular/core';
 import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
 import type { CommentInput } from '@src/app/interfaces/comment.interface';
+import type { FeedFilter } from '@src/app/interfaces/feed-service.interface';
 import type { Post, PostInput } from '@src/app/interfaces/post.interface';
 import type { ShareRequest } from '@src/app/interfaces/share-request.interface';
 import { FEED_SERVICE } from '../services/feed';
@@ -23,9 +24,9 @@ export const FeedStore = signalStore(
     loading: false,
   }),
   withMethods((store, feedService = inject(FEED_SERVICE), shareRequest = inject(SHARE_REQUEST)) => ({
-    async loadAll() {
+    async loadAll(filter?: FeedFilter) {
       patchState(store, { loading: true });
-      const posts = await feedService.getAll();
+      const posts = await feedService.getAll(filter);
       patchState(store, { posts, loading: false });
     },
 
@@ -104,6 +105,24 @@ export const FeedStore = signalStore(
 
         const selectedPost = state.selectedPost?.id === postId
           ? { ...state.selectedPost, stats: { ...state.selectedPost.stats, shares: updatedPost.stats.shares } }
+          : state.selectedPost;
+
+        return { posts, selectedPost };
+      });
+    },
+
+    async toggleTag(postId: string) {
+      const updatedPost = await feedService.toggleTag(postId);
+
+      patchState(store, (state) => {
+        const posts = state.posts.map(p =>
+          p.id === postId
+            ? { ...p, tagged: updatedPost.tagged }
+            : p
+        );
+
+        const selectedPost = state.selectedPost?.id === postId
+          ? { ...state.selectedPost, tagged: updatedPost.tagged }
           : state.selectedPost;
 
         return { posts, selectedPost };

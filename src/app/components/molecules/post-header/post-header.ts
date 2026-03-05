@@ -23,13 +23,25 @@ import { TimeAgoPipe } from '@src/app/pipes/time-ago.pipe';
           </div>
         </div>
       </div>
-      <button
-        class="w-8 h-8 flex items-center justify-center rounded-full text-neutral-400 hover:bg-neutral-50 hover:text-neutral-600 transition-colors"
-        aria-label="Post options"
-        (click)="options.emit()"
-      >
-        <span class="material-symbols-outlined" aria-hidden="true">more_horiz</span>
-      </button>
+      @if (tagged()) {
+        <button
+          class="w-8 h-8 flex items-center justify-center rounded-full text-amber-500 hover:bg-amber-50 transition-colors"
+          aria-label="Remove from saved"
+          aria-pressed="true"
+          (click)="tag.emit()"
+        >
+          <span class="material-symbols-outlined filled" aria-hidden="true">bookmark</span>
+        </button>
+      } @else {
+        <button
+          class="w-8 h-8 flex items-center justify-center rounded-full text-neutral-400 hover:bg-neutral-50 hover:text-amber-500 transition-colors"
+          aria-label="Save post"
+          aria-pressed="false"
+          (click)="tag.emit()"
+        >
+          <span class="material-symbols-outlined" aria-hidden="true">bookmark</span>
+        </button>
+      }
     </div>
   `,
 })
@@ -38,6 +50,7 @@ export class PostHeaderComponent {
   timeAgo = input.required<string>();
   meta = input<string>();
   highlightMeta = input(false);
+  tagged = input(false);
 
-  options = output<void>();
+  tag = output<void>();
 }

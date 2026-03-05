@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, input, output, PLATFORM_ID, signal } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { UserProfileComponent } from '../../molecules/user-profile/user-profile';
 
 const SM_BREAKPOINT = '(min-width: 640px)';
@@ -9,7 +9,7 @@ const SM_BREAKPOINT = '(min-width: 640px)';
   selector: 'app-header',
   templateUrl: './app-header.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, RouterLinkActive, UserProfileComponent],
+  imports: [RouterLink, UserProfileComponent],
 })
 export class AppHeaderComponent {
   menuClick = output<void>();

@@ -29,6 +29,12 @@
         </a>
       </li>
       <li>
+        <a routerLink="/feed" [queryParams]="{ tagged: true }" class="dropdown-item">
+          <span class="material-symbols-outlined text-xl" aria-hidden="true">bookmark</span>
+          Saved
+        </a>
+      </li>
+      <li>
         <button (click)="logout()" class="dropdown-item text-red-600 hover:bg-red-50 hover:text-red-700">
           <span class="material-symbols-outlined text-xl" aria-hidden="true">logout</span>
           Log out

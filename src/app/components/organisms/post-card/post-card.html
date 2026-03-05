@@ -5,6 +5,8 @@
   [timeAgo]="post().createdAt"
   [meta]="post().meta"
   [highlightMeta]="post().type === 'event'"
+  [tagged]="post().tagged"
+  (tag)="tag.emit()"
 />
 
 <!-- Content -->
@@ -60,4 +62,5 @@
     <span class="action-btn-icon group-hover:scale-110 material-symbols-outlined" aria-hidden="true">share</span>
     <span class="action-btn-label">Share</span>
   </button>
+
 </div>

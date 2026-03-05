@@ -21,4 +21,5 @@ export class PostCardComponent {
   like = output<void>();
   comment = output<void>();
   share = output<void>();
+  tag = output<void>();
 }

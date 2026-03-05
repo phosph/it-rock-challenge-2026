@@ -61,7 +61,7 @@ export class PostEntity {
     });
   }
 
-  toPost(currentUserId: string): Post {
+  toPost(currentUserId: string, tagged: boolean): Post {
     return {
       id: this.id,
       type: this.type,
@@ -79,6 +79,7 @@ export class PostEntity {
         shares: this.shares,
       },
       liked: this.likedBy.has(currentUserId),
+      tagged,
       comments: this.comments.map(c => ({ ...c, author: { ...c.author } })),
     };
   }
