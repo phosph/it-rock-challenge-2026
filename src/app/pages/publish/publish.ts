@@ -77,7 +77,7 @@ export default class PublishPage {
     const hasImage = imageUrl.trim().length > 0;
 
     const postInput: PostInput = {
-      type: hasImage ? 'image' : 'quote',
+      type: hasImage ? 'image' : 'text',
       content: content.trim(),
       ...(hasImage && {
         image: {

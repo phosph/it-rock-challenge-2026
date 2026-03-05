@@ -1,6 +1,6 @@
 import type { Comment } from './comment.interface';
 
-export type PostType = 'image' | 'article' | 'quote' | 'event';
+export type PostType = 'text' | 'image' | 'article' | 'quote' | 'event';
 
 export interface PostAuthor {
   id: string;
