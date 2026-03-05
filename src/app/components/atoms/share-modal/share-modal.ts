@@ -14,7 +14,7 @@ import { SHARE_REQUEST } from '@src/app/store/feed.store';
           <div class="flex items-center justify-between mb-4">
             <h2 id="share-title" class="text-lg font-bold text-neutral-900">Share</h2>
             <button type="button"
-                    class="w-9 h-9 rounded-full bg-neutral-100 flex items-center justify-center text-neutral-500 hover:bg-neutral-200 hover:text-neutral-700 transition-colors"
+                    class="close-btn"
                     (click)="close()"
                     aria-label="Close">
               <span class="material-symbols-outlined" aria-hidden="true">close</span>
