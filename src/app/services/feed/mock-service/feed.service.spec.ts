@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { signal } from '@angular/core';
 import type { FeedService } from '@src/app/interfaces/feed-service.interface';
-import { FeedError, FeedErrorCode } from '@src/app/interfaces/feed-error';
+import { FeedError, FeedErrorCode } from '@src/app/errors/feed-error';
 import { AUTH_TOKEN } from '@src/app/store/auth.store';
 import { AUTH_SERVICE, provideMockAuthService } from '../../auth';
 import { FEED_SERVICE, provideMockFeedService } from '../index';
