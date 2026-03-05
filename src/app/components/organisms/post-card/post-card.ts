@@ -16,6 +16,7 @@ import { PostHeaderComponent } from '@src/app/components/molecules/post-header/p
 })
 export class PostCardComponent {
   post = input.required<Post>();
+  showCommentAction = input(true);
 
   like = output<void>();
   comment = output<void>();

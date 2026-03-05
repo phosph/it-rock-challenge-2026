@@ -50,10 +50,12 @@
       <span class="action-btn-label">Like</span>
     </button>
   }
-  <button class="action-btn group text-neutral-500 hover:bg-neutral-50 hover:text-blue-500" (click)="comment.emit()" aria-label="Comment on post">
-    <span class="action-btn-icon group-hover:scale-110 material-symbols-outlined" aria-hidden="true">chat_bubble</span>
-    <span class="action-btn-label">Comment</span>
-  </button>
+  @if (showCommentAction()) {
+    <button class="action-btn group text-neutral-500 hover:bg-neutral-50 hover:text-blue-500" (click)="comment.emit()" aria-label="Comment on post">
+      <span class="action-btn-icon group-hover:scale-110 material-symbols-outlined" aria-hidden="true">chat_bubble</span>
+      <span class="action-btn-label">Comment</span>
+    </button>
+  }
   <button class="action-btn group text-neutral-500 hover:bg-neutral-50 hover:text-primary-500" (click)="share.emit()" aria-label="Share post">
     <span class="action-btn-icon group-hover:scale-110 material-symbols-outlined" aria-hidden="true">share</span>
     <span class="action-btn-label">Share</span>

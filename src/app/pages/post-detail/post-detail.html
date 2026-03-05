@@ -23,7 +23,7 @@
   <div class="flex-1 overflow-y-auto">
     @if (post(); as p) {
       <!-- Post content -->
-      <app-post-card [post]="p" />
+      <app-post-card [post]="p" [showCommentAction]="false" flat />
 
       <!-- Comment input -->
       @if (user(); as u) {
