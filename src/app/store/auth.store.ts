@@ -9,7 +9,7 @@ import { AuthError, AuthErrorCode } from '../interfaces/auth-error';
 const TOKEN_KEY = 'auth_token';
 
 interface AuthState {
-  token: string,
+  token: string;
   user: User | null;
   loading: boolean;
   error: string;
@@ -17,8 +17,8 @@ interface AuthState {
 
 export const AUTH_TOKEN = new InjectionToken<Signal<string>>('AUTH_TOKEN', {
   providedIn: 'root',
-  factory: () => inject(AuthStore).token
-})
+  factory: () => inject(AuthStore).token,
+});
 
 export const AuthStore = signalStore(
   { providedIn: 'root' },
@@ -75,18 +75,16 @@ export const AuthStore = signalStore(
 
     async getCurrentUser(): Promise<User | null> {
       try {
-        const token = store.token()
+        const token = store.token();
         if (!token) {
-          return null
+          return null;
         }
 
-        const user = await authService.getAuthenticatedUser(token)
+        const user = await authService.getAuthenticatedUser(token);
 
         patchState(store, { user, loading: false });
         return user;
       } catch (error) {
-        console.error(error)
-
         if (error instanceof AuthError) {
           switch (error.code) {
             case AuthErrorCode.TOKEN_EXPIRED:
@@ -98,7 +96,7 @@ export const AuthStore = signalStore(
             }
           }
         }
-        return null
+        return null;
       }
     },
     logout(): void {

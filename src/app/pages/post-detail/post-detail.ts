@@ -21,7 +21,7 @@ export default class PostDetailPage implements OnInit, OnDestroy {
   private readonly router = inject(Router);
   private readonly feedStore = inject(FeedStore);
   private readonly authStore = inject(AuthStore);
-  readonly destroyRef = inject(DestroyRef)
+  private readonly destroyRef = inject(DestroyRef);
   private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
   readonly post = this.feedStore.selectedPost;
@@ -31,9 +31,7 @@ export default class PostDetailPage implements OnInit, OnDestroy {
   ngOnInit(): void {
     const postId = this.route.snapshot.paramMap.get('postId');
 
-    // NOTA: en circustancias normales esto no debería cargarse solo en browser
-    // pero no tenemos server ni DB, y los posts están en el cliente en el localstorage
-    // así que estoy forzado a cargarlo solamente en el browser
+    // No real backend — posts live in localStorage (client only)
     if (postId && this.isBrowser) {
       from(this.feedStore.loadPost(postId)).pipe(
         takeUntilDestroyed(this.destroyRef),

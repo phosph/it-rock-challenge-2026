@@ -18,7 +18,7 @@ export class FormFieldComponent implements OnInit, ControlValueAccessor {
   id = input<string>(crypto.randomUUID());
 
   private ngControl = inject(NgControl, { self: true, optional: true });
-  private destroyRef = inject(DestroyRef);
+  private readonly destroyRef = inject(DestroyRef);
 
   readonly inner = new FormControl('', { nonNullable: true });
 

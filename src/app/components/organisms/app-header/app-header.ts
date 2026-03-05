@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, input, output, PLATFORM_ID, signal } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { UserProfileComponent } from '../../molecules/user-profile/user-profile';
+import { UserProfileComponent } from '@src/app/components/molecules/user-profile/user-profile';
 
 const SM_BREAKPOINT = '(min-width: 640px)';
 
