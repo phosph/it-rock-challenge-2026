@@ -21,6 +21,16 @@ import { PostImage } from '@src/app/interfaces/post.interface';
     </div>
   `,
 })
+/**
+ * Displays an image with a hover overlay effect and an optional caption badge
+ * positioned at the bottom-right corner.
+ *
+ * @example
+ * ```html
+ * <app-image-preview [image]="post.image!" />
+ * ```
+ */
 export class ImagePreviewComponent {
+  /** Image data including URL, alt text, and optional caption. */
   image = input.required<PostImage>();
 }

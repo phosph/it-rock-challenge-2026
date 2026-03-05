@@ -23,6 +23,16 @@ import { PostEvent } from '@src/app/interfaces/post.interface';
     </div>
   `,
 })
+/**
+ * Renders an event preview card with a background image, gradient overlay,
+ * and event details (title, location, and date) positioned at the bottom.
+ *
+ * @example
+ * ```html
+ * <app-event-preview [event]="post.event!" />
+ * ```
+ */
 export class EventPreviewComponent {
+  /** Event data including image URL, title, location, and date. */
   event = input.required<PostEvent>();
 }

@@ -3,6 +3,11 @@ import { isPlatformBrowser } from '@angular/common';
 import { Router, type CanActivateFn } from '@angular/router';
 import { AuthStore } from '@src/app/store/auth.store';
 
+/**
+ * Route guard that restricts access to unauthenticated (guest) users only.
+ * Redirects to `/feed` if the user is already authenticated or has a valid stored token.
+ * Always allows access during SSR.
+ */
 export const guestGuard: CanActivateFn = async () => {
   const platformId = inject(PLATFORM_ID);
 

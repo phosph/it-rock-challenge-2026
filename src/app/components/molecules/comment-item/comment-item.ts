@@ -21,6 +21,16 @@ import { TimeAgoPipe } from '@src/app/pipes/time-ago.pipe';
     </div>
   `,
 })
+/**
+ * Displays a single comment with the author's avatar, name, relative timestamp, and content.
+ * Separated from siblings by a bottom border (hidden on the last item).
+ *
+ * @example
+ * ```html
+ * <app-comment-item [comment]="comment" />
+ * ```
+ */
 export class CommentItemComponent {
+  /** Comment data including author info, content, and creation date. */
   comment = input.required<Comment>();
 }

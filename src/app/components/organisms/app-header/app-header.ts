@@ -12,9 +12,22 @@ const SM_BREAKPOINT = '(min-width: 640px)';
   host: { class: 'block' },
   imports: [RouterLink, UserProfileComponent],
 })
+/**
+ * Top navigation bar with responsive layout. Shows a compact mobile header with a
+ * hamburger menu button below the `sm` breakpoint, and a full desktop header with
+ * navigation links and user profile above it. Listens to `matchMedia` changes to
+ * toggle between layouts.
+ *
+ * @example
+ * ```html
+ * <app-header (menuClick)="toggleSidebar()" />
+ * ```
+ */
 export class AppHeaderComponent {
+  /** Emits when the mobile hamburger menu button is clicked. */
   menuClick = output<void>();
 
+  /** Whether the viewport matches the `sm` (640px) breakpoint or above. */
   readonly isDesktop = signal(false);
 
   constructor() {

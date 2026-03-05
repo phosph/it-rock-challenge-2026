@@ -37,8 +37,23 @@ import { ChangeDetectionStrategy, Component, input, output } from '@angular/core
     </div>
   `,
 })
+/**
+ * Reusable dialog layout template with a titled header, close button, scrollable body,
+ * and an optional footer slot. Full-screen on mobile, centered card on desktop with
+ * a backdrop overlay. Closes on `Escape` key or backdrop click.
+ *
+ * @example
+ * ```html
+ * <app-dialog-layout title="New Post" (closed)="onClose()">
+ *   <p>Dialog body content</p>
+ *   <footer dialog-footer>Footer actions</footer>
+ * </app-dialog-layout>
+ * ```
+ */
 export class DialogLayoutComponent {
+  /** Title text displayed in the dialog header. */
   title = input.required<string>();
+  /** Emits when the dialog is dismissed (close button, backdrop click, or Escape key). */
   closed = output<void>();
 
   protected readonly titleId = 'dialog-title-' + Math.random().toString(36).slice(2, 9);

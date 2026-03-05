@@ -12,6 +12,14 @@ import { AuthStore } from '@src/app/store/auth.store';
   templateUrl: './auth.html',
   styleUrl: './auth.css',
 })
+/**
+ * Login and signup page. Presents a form with email/password fields and OAuth provider
+ * buttons (Google, Twitter). On successful credential login, navigates to `/feed`.
+ * OAuth login redirects to the mock consent screen at `/auth/oauth/:provider`.
+ *
+ * @route `/auth`
+ * @guard `guestGuard` — redirects authenticated users to `/feed`
+ */
 export default class AuthPage {
   private readonly fb = inject(FormBuilder);
   private readonly router = inject(Router);

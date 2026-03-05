@@ -4,12 +4,18 @@ import type { User } from '../../interfaces/user.interface';
 import { AuthError, AuthErrorCode } from '../../interfaces/auth-error';
 import mockUsers from './users.mock.json';
 
+/** @internal Extended user with password for mock authentication. */
 interface MockUser extends User {
   password: string;
 }
 
+/**
+ * Mock implementation of {@link AuthService}. Uses an in-memory `Map` seeded from
+ * `users.mock.json` as a fake database. Generates unsigned JWT tokens for session management.
+ */
 @Injectable()
 export class MockAuthServiceImpl implements AuthService {
+  /** In-memory user database keyed by email. */
   readonly #mockedDb = new Map<string, MockUser>(
     mockUsers.map(user => [user.email, user as MockUser])
   );
@@ -81,6 +87,7 @@ export class MockAuthServiceImpl implements AuthService {
     return structuredClone(publicUser);
   }
 
+  /** Creates an unsigned JWT token with a 30-minute expiry. */
   #createToken(user: User): string {
     const [header, payload] = [
       { alg: 'none', typ: 'JWT' },
@@ -95,6 +102,7 @@ export class MockAuthServiceImpl implements AuthService {
     return `${header}.${payload}.`;
   }
 
+  /** Decodes a JWT payload. Returns `null` if the token is malformed. */
   #decodeToken(token: string): { sub: string; exp: number } | null {
     try {
       const [, payload] = token.split('.');

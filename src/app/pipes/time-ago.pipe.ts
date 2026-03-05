@@ -9,8 +9,20 @@ const INTERVALS: [number, string, string][] = [
   [Infinity, 'year', 'years'],
 ];
 
+/**
+ * Pure pipe that converts an ISO date string into a human-readable relative time
+ * (e.g. "just now", "5 minutes ago", "2 hours ago"). Returns the original value
+ * unchanged if it is not a valid date string.
+ *
+ * @example
+ * ```html
+ * <time>{{ comment.createdAt | timeAgo }}</time>
+ * <!-- Output: "5 minutes ago" -->
+ * ```
+ */
 @Pipe({ name: 'timeAgo', pure: true })
 export class TimeAgoPipe implements PipeTransform {
+  /** @param value ISO date string to convert to relative time. */
   transform(value: string): string {
     const date = new Date(value);
     if (isNaN(date.getTime())) return value;

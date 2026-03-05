@@ -28,9 +28,23 @@ import { AvatarComponent } from '@src/app/components/atoms/avatar/avatar';
     </form>
   `,
 })
+/**
+ * Comment text input with the current user's avatar. Includes a textarea with
+ * validation and a submit button that is disabled until content is entered.
+ * Emits the trimmed comment text on submit and resets the form.
+ *
+ * @example
+ * ```html
+ * <app-comment-input [avatarUrl]="user.avatar" [authorName]="user.name"
+ *                    (commentSubmit)="onComment($event)" />
+ * ```
+ */
 export class CommentInputComponent {
+  /** URL of the commenting user's avatar. */
   avatarUrl = input.required<string>();
+  /** Display name of the commenting user (used as avatar alt text). */
   authorName = input.required<string>();
+  /** Emits the trimmed comment text when the form is submitted. */
   commentSubmit = output<string>();
 
   readonly form = new FormGroup({

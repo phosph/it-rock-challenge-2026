@@ -9,12 +9,28 @@ import { ControlValueAccessor, FormControl, NgControl, ReactiveFormsModule } fro
   host: { class: 'block space-y-1.5' },
   templateUrl: './form-field.html',
 })
+/**
+ * Reusable form field wrapper that implements `ControlValueAccessor`.
+ * Includes a label, Material Symbols icon, input element, and validation error messages.
+ * Integrates with Angular reactive forms via `NgControl`.
+ *
+ * @example
+ * ```html
+ * <app-form-field label="Email" icon="mail" type="email"
+ *                 placeholder="you@example.com" formControlName="email" />
+ * ```
+ */
 export class FormFieldComponent implements OnInit, ControlValueAccessor {
+  /** Label text displayed above the input. */
   label = input.required<string>();
+  /** HTML input type attribute. Defaults to `'text'`. */
   type = input<string>('text');
+  /** Material Symbols icon name displayed inside the input. */
   icon = input.required<string>();
+  /** Placeholder text for the input. */
   placeholder = input<string>('');
 
+  /** Unique ID linking the `<label>` to the `<input>`. Auto-generated if not provided. */
   id = input<string>(crypto.randomUUID());
 
   private ngControl = inject(NgControl, { self: true, optional: true });

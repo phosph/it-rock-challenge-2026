@@ -43,6 +43,16 @@ function isProvider(value: string | null): value is Provider {
   templateUrl: './oauth-consent.html',
   styleUrl: './oauth-consent.css',
 })
+/**
+ * Mock OAuth provider consent screen. Displays the provider's branding, a mock user
+ * email, and requested permission scopes. The "Allow" button redirects to the callback
+ * URL with a mock authorization code; "Deny" redirects back to `/auth`.
+ *
+ * Supports Google and Twitter providers via the `:provider` route param.
+ *
+ * @route `/auth/oauth/:provider`
+ * @guard `guestGuard`
+ */
 export default class OAuthConsentPage {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);

@@ -15,6 +15,15 @@ import { DialogLayoutComponent } from '@src/app/components/templates/dialog-layo
   styleUrl: './publish.css',
   templateUrl: './publish.html',
 })
+/**
+ * Post creation page rendered as a modal dialog (child route of feed).
+ * Provides a form with a text content field and an optional image attachment
+ * (URL + alt text). Submits the new post via `FeedStore.uploadPost()` and
+ * navigates back to `/feed` on success.
+ *
+ * @route `/feed/publish`
+ * @guard `authGuard`
+ */
 export default class PublishPage {
   private readonly router = inject(Router);
   private readonly authStore = inject(AuthStore);

@@ -26,6 +26,16 @@ import { PostArticle } from '@src/app/interfaces/post.interface';
     </div>
   `,
 })
+/**
+ * Renders a linked article preview card with an image, title, optional label, and description.
+ * Uses a responsive horizontal layout on desktop and stacked layout on mobile.
+ *
+ * @example
+ * ```html
+ * <app-article-preview [article]="post.article!" />
+ * ```
+ */
 export class ArticlePreviewComponent {
+  /** Article data including image URL, title, description, and optional label. */
   article = input.required<PostArticle>();
 }

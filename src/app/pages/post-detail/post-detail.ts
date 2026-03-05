@@ -17,6 +17,17 @@ import { from } from 'rxjs';
   styleUrl: './post-detail.css',
   templateUrl: './post-detail.html',
 })
+/**
+ * Single post detail view rendered as a modal dialog (child route of feed).
+ * Loads a specific post by `:postId` route param, displays the post card,
+ * a list of comments, and a comment input for adding new comments.
+ * Supports like, share, and bookmark interactions. Clears the selected post on destroy.
+ *
+ * Data loading is guarded by `isPlatformBrowser` since all data lives in localStorage.
+ *
+ * @route `/feed/:postId`
+ * @guard `authGuard`
+ */
 export default class PostDetailPage implements OnInit, OnDestroy {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);

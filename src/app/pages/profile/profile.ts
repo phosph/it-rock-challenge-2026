@@ -44,6 +44,14 @@ import { AuthStore } from '@src/app/store/auth.store';
     </main>
   `,
 })
+/**
+ * User profile page displaying the authenticated user's avatar, display name, username,
+ * bio, email, and membership date. Includes a logout button that clears the session
+ * and redirects to `/auth`.
+ *
+ * @route `/profile`
+ * @guard `authGuard`
+ */
 export default class ProfilePage {
   readonly authStore = inject(AuthStore);
   private readonly router = inject(Router);

@@ -27,7 +27,18 @@ import { PostStats } from '@src/app/interfaces/post.interface';
     </div>
   `,
 })
+/**
+ * Displays post engagement statistics: likes, comments, and shares.
+ * Shows a heart icon alongside the thumbs-up when the post is liked.
+ *
+ * @example
+ * ```html
+ * <app-post-stats [stats]="post.stats" [liked]="post.liked" />
+ * ```
+ */
 export class PostStatsComponent {
+  /** Engagement counts for the post. */
   stats = input.required<PostStats>();
+  /** Whether the current user has liked this post. Adds a heart reaction icon when `true`. */
   liked = input.required<boolean>();
 }

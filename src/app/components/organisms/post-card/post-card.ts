@@ -14,12 +14,27 @@ import { PostHeaderComponent } from '@src/app/components/molecules/post-header/p
   imports: [ArticlePreviewComponent, QuoteBlockComponent, EventPreviewComponent, ImagePreviewComponent, PostStatsComponent, PostHeaderComponent],
   styleUrl: './post-card.css'
 })
+/**
+ * Full post card used in the feed. Composes `PostHeader`, content previews (image, article,
+ * quote, or event), `PostStats`, and action buttons (like, comment, share, save).
+ *
+ * @example
+ * ```html
+ * <app-post-card [post]="post" (like)="onLike()" (share)="onShare()" />
+ * ```
+ */
 export class PostCardComponent {
+  /** Complete post data including author, content, stats, and interaction state. */
   post = input.required<Post>();
+  /** Whether to show the comment action button. Set to `false` on the post detail page. Defaults to `true`. */
   showCommentAction = input(true);
 
+  /** Emits when the user clicks the like button. */
   like = output<void>();
+  /** Emits when the user clicks the comment button. */
   comment = output<void>();
+  /** Emits when the user clicks the share button. */
   share = output<void>();
+  /** Emits when the user clicks the bookmark/save button. */
   tag = output<void>();
 }

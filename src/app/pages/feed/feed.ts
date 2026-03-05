@@ -44,6 +44,17 @@ import { FeedStore } from '@src/app/store/feed.store';
     <router-outlet />
   `,
 })
+/**
+ * Main social network feed page. Loads and displays all posts from the `FeedStore`,
+ * with support for filtering by bookmarked posts via the `?tagged=true` query param.
+ * Handles post interactions (like, comment, share, save) and provides a FAB to
+ * navigate to the publish page. Child routes (post detail, publish) render via `RouterOutlet`.
+ *
+ * Data loading is guarded by `isPlatformBrowser` since all data lives in localStorage.
+ *
+ * @route `/feed`
+ * @guard `authGuard` — redirects unauthenticated users to `/auth`
+ */
 export default class FeedPage implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);

@@ -14,6 +14,16 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
     </div>
   `,
 })
+/**
+ * Renders a styled blockquote with a gradient background and decorative blur circles.
+ * Used within post cards for quote-type posts.
+ *
+ * @example
+ * ```html
+ * <app-quote-block [quote]="post.quote!" />
+ * ```
+ */
 export class QuoteBlockComponent {
+  /** The quote text to display. Rendered inside a `<blockquote>` element. */
   quote = input.required<string>();
 }

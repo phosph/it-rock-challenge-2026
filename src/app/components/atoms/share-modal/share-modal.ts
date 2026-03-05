@@ -36,8 +36,15 @@ import { SHARE_REQUEST } from '@src/app/store/feed.store';
     }
   `,
 })
+/**
+ * Modal dialog for sharing a post URL. Displays a read-only URL input with a copy-to-clipboard button.
+ * Visibility is controlled by the `SHARE_REQUEST` signal — the modal appears when a share request
+ * is set and closes when cleared.
+ */
 export class ShareModalComponent {
+  /** Signal holding the current share request (URL + post ID), or `null` when closed. */
   readonly shareRequest = inject(SHARE_REQUEST);
+  /** Whether the URL was recently copied to clipboard. Resets on close. */
   readonly copied = signal(false);
 
   close(): void {

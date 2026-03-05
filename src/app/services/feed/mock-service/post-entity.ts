@@ -18,6 +18,11 @@ export interface StoredPost {
   comments?: Comment[];
 }
 
+/**
+ * Internal entity class representing a post in the mock database.
+ * Wraps raw stored data with `Set`-based like tracking and provides
+ * conversion methods to/from the public `Post` interface and the `StoredPost` shape.
+ */
 export class PostEntity {
   readonly id: string;
   readonly type: PostType;
@@ -49,6 +54,7 @@ export class PostEntity {
     this.shares = data.shares;
   }
 
+  /** Creates a new entity from a post input, assigning a unique ID and author. */
   static fromInput(input: PostInput, id: string, author: PostAuthor): PostEntity {
     return new PostEntity({
       ...structuredClone(input),
@@ -61,6 +67,7 @@ export class PostEntity {
     });
   }
 
+  /** Converts the entity to a public `Post` object with computed stats, like state, and bookmark state for the given user. */
   toPost(currentUserId: string, tagged: boolean): Post {
     return {
       id: this.id,
@@ -84,6 +91,7 @@ export class PostEntity {
     };
   }
 
+  /** Serializes the entity back to the `StoredPost` shape for localStorage persistence. */
   toStorable(): StoredPost {
     return {
       id: this.id,

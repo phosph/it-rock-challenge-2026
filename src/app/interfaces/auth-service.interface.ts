@@ -1,17 +1,28 @@
 import type { User } from "./user.interface";
 
+/** Credentials payload for email/password login. */
 export interface LoginData {
+  /** User's email address. */
   username: string,
+  /** User's password. */
   password: string
 }
 
+/** Supported OAuth provider identifiers. */
 export type OAuthProvider = 'google' | 'twitter';
 
+/** Payload for exchanging an OAuth authorization code for a session. */
 export interface OAuthExchangeData {
+  /** Authorization code returned by the OAuth provider. */
   code: string;
+  /** OAuth provider that issued the code. */
   provider: OAuthProvider;
 }
 
+/**
+ * Authentication service contract. Implementations handle credential login,
+ * OAuth code exchange, and token-based session restoration.
+ */
 export interface AuthService {
   /**
    * Authenticates a user with email and password.

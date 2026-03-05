@@ -7,17 +7,34 @@ import type { Post, PostInput } from '@src/app/interfaces/post.interface';
 import type { ShareRequest } from '@src/app/interfaces/share-request.interface';
 import { FEED_SERVICE } from '../services/feed';
 
+/**
+ * Injection token holding a writable signal for the current share request.
+ * Set by `FeedStore.sharePost()` when the Web Share API is unavailable;
+ * consumed by `ShareModalComponent` to display the share URL dialog.
+ */
 export const SHARE_REQUEST = new InjectionToken<WritableSignal<ShareRequest | null>>('SHARE_REQUEST', {
   providedIn: 'root',
   factory: () => signal<ShareRequest | null>(null),
 });
 
+/** @internal Feed store state shape. */
 interface FeedState {
+  /** List of posts currently displayed in the feed. */
   posts: Post[];
+  /** Post loaded for the detail view, or `null` when no post is selected. */
   selectedPost: Post | null;
+  /** Whether a feed operation is in progress. */
   loading: boolean;
 }
 
+/**
+ * Feed state store built with `@ngrx/signals`. Manages the post feed lifecycle:
+ * loading posts (with optional filter), creating posts, toggling likes and bookmarks,
+ * sharing, loading single post details, and adding comments.
+ *
+ * Updates both the `posts` list and `selectedPost` consistently when a post is mutated.
+ * Not provided in root — instantiated per `FeedPage` via `providers: [FeedStore]`.
+ */
 export const FeedStore = signalStore(
   withState<FeedState>({
     posts: [],
@@ -25,6 +42,7 @@ export const FeedStore = signalStore(
     loading: false,
   }),
   withMethods((store, feedService = inject(FEED_SERVICE), shareRequest = inject(SHARE_REQUEST), isBrowser = isPlatformBrowser(inject(PLATFORM_ID))) => ({
+    /** Loads all posts into the feed, optionally filtered (e.g. `{ tagged: true }` for bookmarked posts). */
     async loadAll(filter?: FeedFilter) {
       patchState(store, { loading: true });
       try {
@@ -35,6 +53,7 @@ export const FeedStore = signalStore(
       }
     },
 
+    /** Creates a new post and prepends it to the feed list. */
     async uploadPost(postInput: PostInput) {
       const post = await feedService.uploadPost(postInput);
       patchState(store, ({ posts }) => ({
@@ -43,6 +62,7 @@ export const FeedStore = signalStore(
       return post;
     },
 
+    /** Loads a single post by ID into `selectedPost` for the detail view. */
     async loadPost(postId: string) {
       patchState(store, { loading: true });
       try {
@@ -53,6 +73,7 @@ export const FeedStore = signalStore(
       }
     },
 
+    /** Adds a comment to a post and updates the comment count in both `posts` and `selectedPost`. */
     async addComment(postId: string, commentInput: CommentInput) {
       const comment = await feedService.addComment(postId, commentInput);
 
@@ -76,6 +97,7 @@ export const FeedStore = signalStore(
       });
     },
 
+    /** Toggles the like state of a post and syncs the updated like count across `posts` and `selectedPost`. */
     async toggleLike(postId: string) {
       const updatedPost = await feedService.toggleLike(postId);
 
@@ -94,6 +116,7 @@ export const FeedStore = signalStore(
       });
     },
 
+    /** Shares a post via the Web Share API (if available) or opens the share modal. Increments the share count. Browser-only. */
     async sharePost(postId: string) {
       if (!isBrowser) {
         throw new Error('sharePost cannot be called during server-side rendering');
@@ -124,6 +147,7 @@ export const FeedStore = signalStore(
       });
     },
 
+    /** Toggles the bookmark/saved state of a post and syncs across `posts` and `selectedPost`. */
     async toggleTag(postId: string) {
       const updatedPost = await feedService.toggleTag(postId);
 
@@ -142,6 +166,7 @@ export const FeedStore = signalStore(
       });
     },
 
+    /** Resets `selectedPost` to `null`. Called when leaving the post detail view. */
     clearSelectedPost() {
       patchState(store, { selectedPost: null });
     },

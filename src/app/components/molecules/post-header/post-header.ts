@@ -45,12 +45,28 @@ import { TimeAgoPipe } from '@src/app/pipes/time-ago.pipe';
     </div>
   `,
 })
+/**
+ * Post header showing the author's avatar, name, relative timestamp, optional metadata,
+ * and a bookmark/save toggle button.
+ *
+ * @example
+ * ```html
+ * <app-post-header [author]="post.author" [timeAgo]="post.createdAt"
+ *                  [meta]="post.meta" [tagged]="post.tagged" (tag)="onTag()" />
+ * ```
+ */
 export class PostHeaderComponent {
+  /** Post author information (name, avatar URL). */
   author = input.required<PostAuthor>();
+  /** ISO date string or text passed through the `timeAgo` pipe. */
   timeAgo = input.required<string>();
+  /** Optional metadata text displayed next to the timestamp (e.g. location). */
   meta = input<string>();
+  /** Whether to highlight the metadata text in the primary color. Defaults to `false`. */
   highlightMeta = input(false);
+  /** Whether the post is saved/bookmarked. Controls the bookmark icon appearance. Defaults to `false`. */
   tagged = input(false);
 
+  /** Emits when the user clicks the bookmark toggle button. */
   tag = output<void>();
 }

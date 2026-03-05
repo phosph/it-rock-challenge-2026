@@ -23,4 +23,22 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
     </div>
   `,
 })
+/**
+ * Three-column responsive page layout for the feed. On desktop (`lg`+), shows left and right
+ * sidebars alongside the main content area. On smaller viewports, only the center column is visible.
+ *
+ * Content projection slots:
+ * - Default: main feed content (center column)
+ * - `[sidebar-left]`: left sidebar content (desktop only)
+ * - `[sidebar-right]`: right sidebar content (desktop only)
+ *
+ * @example
+ * ```html
+ * <app-feed-layout>
+ *   <div sidebar-left>Left sidebar</div>
+ *   <div>Main feed content</div>
+ *   <div sidebar-right>Right sidebar</div>
+ * </app-feed-layout>
+ * ```
+ */
 export class FeedLayoutComponent {}

@@ -24,7 +24,18 @@ export type OAuthBrand = 'google' | 'twitter';
     }
   `,
 })
+/**
+ * Renders an inline SVG icon for a supported OAuth provider (Google or Twitter).
+ * Uses brand-accurate colors for Google; inherits `currentColor` for Twitter.
+ *
+ * @example
+ * ```html
+ * <app-provider-icon provider="google" sizeClass="w-6 h-6" />
+ * ```
+ */
 export class ProviderIconComponent {
+  /** OAuth provider whose brand icon to display. */
   provider = input.required<OAuthBrand>();
+  /** Tailwind size classes applied to the SVG element. Defaults to `'w-5 h-5'`. */
   sizeClass = input('w-5 h-5');
 }

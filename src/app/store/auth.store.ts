@@ -8,18 +8,35 @@ import { AuthError, AuthErrorCode } from '../interfaces/auth-error';
 
 const TOKEN_KEY = 'auth_token';
 
+/** @internal Auth store state shape. */
 interface AuthState {
+  /** Stored authentication token (persisted in localStorage). */
   token: string;
+  /** Currently authenticated user, or `null` if not logged in. */
   user: User | null;
+  /** Whether an auth operation is in progress. */
   loading: boolean;
+  /** Human-readable error message from the last failed operation. */
   error: string;
 }
 
+/**
+ * Injection token providing a read-only signal of the current auth token.
+ * Convenient for services that need the token without depending on the full store.
+ */
 export const AUTH_TOKEN = new InjectionToken<Signal<string>>('AUTH_TOKEN', {
   providedIn: 'root',
   factory: () => inject(AuthStore).token,
 });
 
+/**
+ * Global authentication state store built with `@ngrx/signals`.
+ * Manages user session lifecycle: credential login, OAuth login, session restoration,
+ * and logout. Persists the auth token in `localStorage` and exposes reactive signals
+ * for `token`, `user`, `loading`, `error`, and the computed `isAuthenticated`.
+ *
+ * Provided in root — singleton across the application.
+ */
 export const AuthStore = signalStore(
   { providedIn: 'root' },
   withState<AuthState>((): AuthState => ({
@@ -36,6 +53,7 @@ export const AuthStore = signalStore(
     authService = inject(AUTH_SERVICE),
     isBrowser = isPlatformBrowser(inject(PLATFORM_ID))
   ) => ({
+    /** Authenticates with email/password credentials. Persists the token in localStorage on success. */
     async login(data: LoginData): Promise<User | null> {
       patchState(store, { loading: true, error: '' });
       try {
@@ -55,6 +73,7 @@ export const AuthStore = signalStore(
       }
     },
 
+    /** Exchanges a mock OAuth authorization code for a user session. Persists the token in localStorage on success. */
     async loginWithOAuth(data: OAuthExchangeData): Promise<User | null> {
       patchState(store, { loading: true, error: '' });
       try {
@@ -73,6 +92,7 @@ export const AuthStore = signalStore(
       }
     },
 
+    /** Restores the user session from the stored token. Clears the token if it is expired, invalid, or the user is not found. */
     async getCurrentUser(): Promise<User | null> {
       try {
         const token = store.token();
@@ -99,6 +119,7 @@ export const AuthStore = signalStore(
         return null;
       }
     },
+    /** Clears the user session and removes the token from localStorage. */
     logout(): void {
       patchState(store, { user: null, token: '', error: '' });
       if (isBrowser) localStorage.removeItem(TOKEN_KEY);

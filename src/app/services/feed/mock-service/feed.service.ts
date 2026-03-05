@@ -12,6 +12,11 @@ import { PostEntity, type StoredPost } from './post-entity';
 const STORAGE_KEY = 'feed_posts';
 const TAGS_STORAGE_KEY = 'feed_tags';
 
+/**
+ * Mock implementation of {@link FeedService}. Uses an in-memory `Map` seeded from
+ * `feeds.mock.json` and persisted to `localStorage`. Tracks likes per user via `Set`,
+ * bookmarks in a separate localStorage key, and resolves the current user from the auth token.
+ */
 @Injectable()
 export class MockFeedServiceImpl implements FeedService {
   readonly #isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
@@ -138,15 +143,18 @@ export class MockFeedServiceImpl implements FeedService {
     return entity.toPost(userId, userTags.has(postId));
   }
 
+  /** Checks whether a post is bookmarked by the given user. */
   #isTagged(userId: string, postId: string): boolean {
     return this.#tags.get(userId)?.has(postId) ?? false;
   }
 
+  /** Resolves the current user's ID from the auth token. */
   async #resolveUserId(): Promise<string> {
     const user = await this.#authService.getAuthenticatedUser(this.#authToken());
     return user.id;
   }
 
+  /** Loads posts from localStorage. Returns `null` if empty or invalid. */
   #loadFromStorage(): StoredPost[] | null {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return null;
@@ -158,6 +166,7 @@ export class MockFeedServiceImpl implements FeedService {
     }
   }
 
+  /** Loads per-user bookmark sets from localStorage. */
   #loadTags(): Map<string, Set<string>> {
     const raw = localStorage.getItem(TAGS_STORAGE_KEY);
     if (!raw) return new Map();
@@ -169,6 +178,7 @@ export class MockFeedServiceImpl implements FeedService {
     }
   }
 
+  /** Serializes all posts to localStorage. */
   #persist(): void {
     if (!this.#isBrowser) return;
     const stored = Iterator.from(this.#mockedDb.values())
@@ -177,6 +187,7 @@ export class MockFeedServiceImpl implements FeedService {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(stored));
   }
 
+  /** Serializes per-user bookmark sets to localStorage. */
   #persistTags(): void {
     if (!this.#isBrowser) return;
     const data: Record<string, string[]> = {};

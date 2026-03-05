@@ -19,6 +19,16 @@ import type { OAuthProvider } from '@src/app/interfaces/auth-service.interface';
     </div>
   `,
 })
+/**
+ * Mock OAuth callback handler. Validates the `code` and `provider` query params,
+ * completes the OAuth flow via `AuthStore.loginWithOAuth()`, and redirects to
+ * `/feed` on success or `/auth` on failure (after a brief error message).
+ *
+ * Only processes the callback in the browser (`isPlatformBrowser` guard).
+ *
+ * @route `/auth/callback`
+ * @guard `guestGuard`
+ */
 export default class OAuthCallbackPage implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
