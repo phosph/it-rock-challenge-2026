@@ -1,59 +1,102 @@
-# ItRockChallenge
+# IT Rock Challenge — Social Network
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.0.
+A basic social network built with **Angular 21**, **Tailwind CSS 4**, and **@ngrx/signals**. All data is mocked (no real backend) and persisted in **LocalStorage**.
 
-## Development server
+## Features
 
-To start a local development server, run:
+- **OAuth login** — simulated Google OAuth flow (fake consent screen + callback)
+- **Email/password login** — with reactive form validation
+- **Feed** — scrollable list of posts with like toggle
+- **Post creation** — text, images (base64), article links, events, and quotes
+- **Comments** — threaded on each post via detail view
+- **Likes** — tracked per-user with `PostEntity` using `Set<string>`
+- **State management** — `@ngrx/signals` (auth store + feed store)
+- **Responsive design** — mobile-first with Tailwind CSS 4
+- **Atomic Design** — atoms, molecules, organisms, templates, pages
+- **Accessibility** — WCAG AA, ARIA attributes, focus management
 
-```bash
-ng serve
-```
+## Tech Stack
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+| Tool              | Version |
+|-------------------|---------|
+| Angular           | 21.2    |
+| Tailwind CSS      | 4       |
+| @ngrx/signals     | 19      |
+| Node.js           | 24+     |
+| pnpm              | 10      |
 
-## Code scaffolding
+## Prerequisites
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- [Node.js](https://nodejs.org/) v24+
+- [pnpm](https://pnpm.io/) v10+
 
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+## Installation
 
 ```bash
-ng test
+pnpm install
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+## Development
 
 ```bash
-ng e2e
+pnpm start
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Opens at [http://localhost:4200](http://localhost:4200). Hot reload is enabled.
 
-## Additional Resources
+## Production Build (with SSR)
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```bash
+pnpm build
+```
+
+Artifacts are output to `dist/it-rock-challenge/`.
+
+To serve the SSR build locally:
+
+```bash
+node dist/it-rock-challenge/server/server.mjs
+```
+
+## Rendering Strategy
+
+Since there is no real backend, all routes use **Prerender** or **Client** rendering. No route uses `RenderMode.Server`.
+
+| Route                     | Render Mode | Notes                                       |
+|---------------------------|-------------|---------------------------------------------|
+| `/auth`                   | Prerender   | Login/signup shell                          |
+| `/auth/oauth/:provider`  | Client      | Dynamic OAuth flow, fully client-side       |
+| `/auth/callback`         | Prerender   | OAuth callback handler                      |
+| `/feed`                   | Prerender   | Feed shell; posts load on client via defer  |
+| `/feed/publish`          | Prerender   | Post creation form                          |
+| `/feed/:postId`          | Prerender   | Detail shell; post data loads on client     |
+| `/profile`               | Prerender   | User profile (stub)                         |
+
+Data-dependent content (posts, comments, auth state) renders exclusively on the browser using `isPlatformBrowser` guards and `@defer (on immediate)`.
+
+## Project Structure
+
+```
+src/app/
+├── components/
+│   ├── atoms/          # Avatar, FormField, ImagePreview, PostStats, ...
+│   ├── molecules/      # CommentInput, CommentItem, PostHeader, UserProfile
+│   ├── organisms/      # AppHeader, PostCard
+│   └── templates/      # FeedLayout
+├── guards/             # AuthGuard, GuestGuard
+├── interfaces/         # TypeScript interfaces and error classes
+├── pages/              # Auth, Feed, PostDetail, Publish, Profile, OAuth
+├── pipes/              # TimeAgoPipe
+├── services/           # Mock implementations (auth, feed)
+└── store/              # @ngrx/signals stores (auth, feed)
+```
+
+## Testing
+
+```bash
+pnpm test
+```
+
+## License
+
+Private — built as a technical challenge for IT Rock.
