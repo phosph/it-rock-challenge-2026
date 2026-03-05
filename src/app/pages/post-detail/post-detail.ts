@@ -37,8 +37,7 @@ export default class PostDetailPage implements OnInit, OnDestroy {
         takeUntilDestroyed(this.destroyRef),
       ).subscribe({
         complete: () => this.loading.set(false),
-        error: () => this.close()
-      })
+      });
     }
   }
 

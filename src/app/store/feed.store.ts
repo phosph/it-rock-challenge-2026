@@ -27,22 +27,30 @@ export const FeedStore = signalStore(
   withMethods((store, feedService = inject(FEED_SERVICE), shareRequest = inject(SHARE_REQUEST), isBrowser = isPlatformBrowser(inject(PLATFORM_ID))) => ({
     async loadAll(filter?: FeedFilter) {
       patchState(store, { loading: true });
-      const posts = await feedService.getAll(filter);
-      patchState(store, { posts, loading: false });
+      try {
+        const posts = await feedService.getAll(filter);
+        patchState(store, { posts, loading: false });
+      } catch {
+        patchState(store, { loading: false });
+      }
     },
 
     async uploadPost(postInput: PostInput) {
       const post = await feedService.uploadPost(postInput);
       patchState(store, ({ posts }) => ({
-        posts: [post, ...posts]
-      }))
-      return post
+        posts: [post, ...posts],
+      }));
+      return post;
     },
 
     async loadPost(postId: string) {
       patchState(store, { loading: true });
-      const post = await feedService.getPost(postId);
-      patchState(store, { selectedPost: post, loading: false });
+      try {
+        const post = await feedService.getPost(postId);
+        patchState(store, { selectedPost: post, loading: false });
+      } catch {
+        patchState(store, { loading: false });
+      }
     },
 
     async addComment(postId: string, commentInput: CommentInput) {
@@ -56,15 +64,15 @@ export const FeedStore = signalStore(
             ...selectedPost,
             comments: [comment, ...(selectedPost.comments ?? [])],
             stats: { ...selectedPost.stats, comments: selectedPost.stats.comments + 1 },
-          }
+          };
         }
 
         posts = posts.map(post => post.id === postId
           ? { ...post, stats: { ...post.stats, comments: post.stats.comments + 1 } }
           : post
-        )
+        );
 
-        return ({ selectedPost, posts });
+        return { selectedPost, posts };
       });
     },
 
