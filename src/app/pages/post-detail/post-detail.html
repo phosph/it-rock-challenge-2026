@@ -5,59 +5,35 @@
   </div>
 </ng-template>
 
-<!-- Backdrop (desktop only, click to close) -->
-<div class="hidden sm:block absolute inset-0"
-     (click)="onBackdropClick($event)"
-     aria-hidden="true"></div>
+<app-dialog-layout title="Post" (closed)="close()">
+  @defer (on immediate) {
+    @if (post(); as p) {
+      <!-- Post content -->
+      <app-post-card [post]="p" [showCommentAction]="false" flat (like)="onLike()" (share)="onShare()" (tag)="onTag()" />
 
-<div class="flex flex-col flex-1 w-full sm:card sm:relative sm:flex-initial sm:max-w-lg sm:w-full sm:mx-4 sm:max-h-[90vh]"
-     role="dialog"
-     aria-modal="true"
-     aria-labelledby="post-detail-title"
-     (keydown.escape)="close()">
-
-  <!-- Header -->
-  <header class="flex items-center justify-between px-5 py-4 border-b border-neutral-100">
-    <h2 id="post-detail-title" class="text-lg font-bold text-neutral-900">Post</h2>
-    <button type="button"
-            class="close-btn"
-            (click)="close()"
-            aria-label="Close">
-      <span class="material-symbols-outlined" aria-hidden="true">close</span>
-    </button>
-  </header>
-
-  <!-- Scrollable body -->
-  <div class="flex-1 overflow-y-auto">
-    @defer (on immediate) {
-      @if (post(); as p) {
-        <!-- Post content -->
-        <app-post-card [post]="p" [showCommentAction]="false" flat (like)="onLike()" (share)="onShare()" (tag)="onTag()" />
-
-        <!-- Comment input -->
-        @if (user(); as u) {
-          <div class="px-5 py-4 border-t border-neutral-100">
-            <app-comment-input
-              [avatarUrl]="u.avatar"
-              [authorName]="u.displayName"
-              (commentSubmit)="onCommentSubmit($event)"
-            />
-          </div>
-        }
-
-        <!-- Comments list -->
-        <div class="px-5 pb-4">
-          @for (comment of p.comments; track comment.id) {
-            <app-comment-item [comment]="comment" />
-          } @empty {
-            <p class="text-sm text-neutral-400 py-4 text-center">No comments yet. Be the first!</p>
-          }
+      <!-- Comment input -->
+      @if (user(); as u) {
+        <div class="px-5 py-4 border-t border-neutral-100">
+          <app-comment-input
+            [avatarUrl]="u.avatar"
+            [authorName]="u.displayName"
+            (commentSubmit)="onCommentSubmit($event)"
+          />
         </div>
-      } @else if (loading()) {
-        <ng-container *ngTemplateOutlet="spinner" />
       }
-    } @placeholder {
+
+      <!-- Comments list -->
+      <div class="px-5 pb-4">
+        @for (comment of p.comments; track comment.id) {
+          <app-comment-item [comment]="comment" />
+        } @empty {
+          <p class="text-sm text-neutral-400 py-4 text-center">No comments yet. Be the first!</p>
+        }
+      </div>
+    } @else if (loading()) {
       <ng-container *ngTemplateOutlet="spinner" />
     }
-  </div>
-</div>
+  } @placeholder {
+    <ng-container *ngTemplateOutlet="spinner" />
+  }
+</app-dialog-layout>

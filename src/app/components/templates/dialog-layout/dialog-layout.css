@@ -1,0 +1,14 @@
+@reference "../../../../styles.css";
+
+:host {
+  @apply fixed inset-0 z-50 flex flex-col bg-white;
+}
+
+@media (min-width: 640px) {
+  :host {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    align-items: center;
+    justify-content: center;
+  }
+}

@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CommentInputComponent } from '@src/app/components/molecules/comment-input/comment-input';
 import { CommentItemComponent } from '@src/app/components/molecules/comment-item/comment-item';
 import { PostCardComponent } from '@src/app/components/organisms/post-card/post-card';
+import { DialogLayoutComponent } from '@src/app/components/templates/dialog-layout/dialog-layout';
 import { AuthStore } from '@src/app/store/auth.store';
 import { FeedStore } from '@src/app/store/feed.store';
 import { from } from 'rxjs';
@@ -12,7 +13,7 @@ import { from } from 'rxjs';
 @Component({
   selector: 'app-post-detail',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgTemplateOutlet, PostCardComponent, CommentInputComponent, CommentItemComponent],
+  imports: [NgTemplateOutlet, PostCardComponent, CommentInputComponent, CommentItemComponent, DialogLayoutComponent],
   styleUrl: './post-detail.css',
   templateUrl: './post-detail.html',
 })
@@ -47,10 +48,6 @@ export default class PostDetailPage implements OnInit, OnDestroy {
 
   close(): void {
     this.router.navigate(['/feed']);
-  }
-
-  onBackdropClick(event: MouseEvent): void {
-    if (event.target === event.currentTarget) this.close();
   }
 
   onLike(): void {

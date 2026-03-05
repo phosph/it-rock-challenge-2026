@@ -6,11 +6,12 @@ import { AuthStore } from '@src/app/store/auth.store';
 import { FeedStore } from '@src/app/store/feed.store';
 import type { PostInput } from '@src/app/interfaces/post.interface';
 import { AvatarComponent } from '@src/app/components/atoms/avatar/avatar';
+import { DialogLayoutComponent } from '@src/app/components/templates/dialog-layout/dialog-layout';
 
 @Component({
   selector: 'app-publish',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ReactiveFormsModule, AvatarComponent],
+  imports: [ReactiveFormsModule, AvatarComponent, DialogLayoutComponent],
   styleUrl: './publish.css',
   templateUrl: './publish.html',
 })
@@ -38,18 +39,6 @@ export default class PublishPage {
 
   close(): void {
     this.router.navigate(['/feed']);
-  }
-
-  onBackdropClick(event: MouseEvent): void {
-    if (event.target === event.currentTarget) {
-      this.close();
-    }
-  }
-
-  onBackdropKeydown(event: KeyboardEvent): void {
-    if (event.key === 'Escape') {
-      this.close();
-    }
   }
 
   toggleImageFields(): void {
